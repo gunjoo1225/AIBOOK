@@ -922,7 +922,7 @@ const chapters = [
 // Render guide page
 function renderGuide() {
   const el = document.getElementById('page-guide');
-  if (!el || el.dataset.rendered) return;
+  if (el.dataset.rendered) return;
   el.dataset.rendered = '1';
 
   el.innerHTML = `
@@ -934,15 +934,16 @@ function renderGuide() {
     </p>
 
     <div class="platform-tabs">
-      <button class="ptab active" onclick="switchTab('gemini')">🔵 Gemini GEMS 등록</button>
+      <button class="ptab active" onclick="switchTab('gemini')">🖥️ PC에서 GEMS 등록</button>
+      <button class="ptab" onclick="switchTab('mobile')">📱 핸드폰에서 실행</button>
       <button class="ptab" onclick="switchTab('gpt')">🟢 ChatGPT GPTs 등록</button>
       <button class="ptab" onclick="switchTab('compare')">📊 비교 및 추천</button>
     </div>
 
-    <!-- Gemini GEMS -->
+    <!-- PC에서 Gemini GEMS 등록 -->
     <div class="platform-panel active" id="panel-gemini">
       <div class="section-card">
-        <div class="section-card-header"><span class="sec-icon">🔵</span><h3>Gemini GEMS 등록 방법</h3></div>
+        <div class="section-card-header"><span class="sec-icon">🖥️</span><h3>PC에서 Gemini GEMS 등록 방법</h3></div>
         <div class="section-card-body">
           <div class="guide-step-wrap">
 
@@ -1000,12 +1001,12 @@ function renderGuide() {
             </div>
 
             <div class="guide-step">
-              <div class="gs-left"><div class="gs-circle">7</div><div class="gs-line"></div></div>
+              <div class="gs-left"><div class="gs-circle">7</div></div>
               <div class="gs-content">
-                <h4>저장 및 사용</h4>
+                <h4>저장</h4>
                 <p>오른쪽 상단 <b>저장</b> 버튼을 클릭합니다.<br>
-                저장된 Gem은 Gems 목록에서 언제든지 꺼내 쓸 수 있습니다.</p>
-                <div class="gs-tip">💡 휴대폰 Gemini 앱에서도 동일한 Gem을 사용할 수 있습니다. 긴급 심방 도우미는 특히 모바일 사용을 추천합니다.</div>
+                저장된 Gem은 Gems 목록에 자동으로 추가됩니다.</p>
+                <div class="gs-tip">✅ 등록 완료! 이제 핸드폰에서도 바로 사용할 수 있습니다. → <span style="cursor:pointer;color:var(--accent);font-weight:600" onclick="document.querySelectorAll('.ptab')[1].click()">📱 핸드폰 실행 방법 보기</span></div>
               </div>
             </div>
 
@@ -1022,6 +1023,68 @@ function renderGuide() {
             <tr><td>설명</td><td>Gem을 열었을 때 첫 화면에 보이는 안내 문구</td><td>② 설명 항목 복사</td></tr>
             <tr><td>지침</td><td>AI가 어떻게 행동할지 결정하는 핵심 프롬프트</td><td>③ 요청사항 전체 복사</td></tr>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 핸드폰에서 실행 -->
+    <div class="platform-panel" id="panel-mobile">
+      <div class="section-card">
+        <div class="section-card-header"><span class="sec-icon">📱</span><h3>핸드폰에서 Gem 실행하기</h3></div>
+        <div class="section-card-body">
+          <div class="info-note" style="margin-bottom:16px"><span class="note-icon">💡</span><span>PC에서 GEMS 등록을 먼저 완료한 후 진행하세요. 동일한 구글 계정을 사용하면 자동으로 동기화됩니다.</span></div>
+          <div class="guide-step-wrap">
+
+            <div class="guide-step">
+              <div class="gs-left"><div class="gs-circle">1</div><div class="gs-line"></div></div>
+              <div class="gs-content">
+                <h4>Gemini 앱 설치</h4>
+                <p>스마트폰의 <b>Play Store</b>(안드로이드) 또는 <b>App Store</b>(아이폰)에서<br>
+                <b>"Gemini"</b>를 검색하여 앱을 설치합니다.</p>
+                <div class="gs-tip">💡 Google에서 만든 공식 앱입니다. 무료로 설치할 수 있습니다.</div>
+              </div>
+            </div>
+
+            <div class="guide-step">
+              <div class="gs-left"><div class="gs-circle">2</div><div class="gs-line"></div></div>
+              <div class="gs-content">
+                <h4>동일한 구글 계정으로 로그인</h4>
+                <p>PC에서 GEMS를 등록할 때 사용한 <b>구글 계정</b>으로 로그인합니다.<br>
+                같은 계정이어야 등록한 Gem이 앱에서 보입니다.</p>
+              </div>
+            </div>
+
+            <div class="guide-step">
+              <div class="gs-left"><div class="gs-circle">3</div><div class="gs-line"></div></div>
+              <div class="gs-content">
+                <h4>Gems 목록 열기</h4>
+                <p>앱 화면 왼쪽 상단의 <b>≡ 메뉴</b>를 탭합니다.<br>
+                메뉴에서 <b>Gems</b> 항목을 탭하면 등록된 Gem 목록이 나타납니다.</p>
+              </div>
+            </div>
+
+            <div class="guide-step">
+              <div class="gs-left"><div class="gs-circle">4</div><div class="gs-line"></div></div>
+              <div class="gs-content">
+                <h4>사용할 Gem 선택</h4>
+                <p>목록에서 PC에서 등록한 Gem 이름을 찾아 탭합니다.<br>
+                예: <span class="gs-tag">비전캠프 (심방 도우미)</span><br>
+                선택하면 해당 Gem 전용 대화창이 열립니다.</p>
+                <div class="gs-tip">💡 Gems 목록은 PC와 자동 동기화되므로 별도 설치나 설정이 필요 없습니다.</div>
+              </div>
+            </div>
+
+            <div class="guide-step">
+              <div class="gs-left"><div class="gs-circle">5</div></div>
+              <div class="gs-content">
+                <h4>내용 입력 후 사용</h4>
+                <p>하단 입력창에 원하는 내용을 입력하면<br>
+                등록된 프롬프트 기반으로 AI가 바로 응답합니다.</p>
+                <div class="gs-tip">✅ 이제 언제 어디서든 스마트폰으로 AI 사무자동화를 활용할 수 있습니다!</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -1147,11 +1210,11 @@ function renderGuide() {
           </div>
           <div>
             <p style="font-weight:600;margin-bottom:4px">Q. 여러 챕터를 하나의 Gem에 합칠 수 있나요?</p>
-            <p style="font-size:13.5px;color:#555;line-height:1.7">가능하지만 권장하지 않습니다. 각 챕터는 용도가 다르게 설계되어 있어서 하나로 합치면 정확도가 떨어질 수 있습니다. 챕터별로 각각 만드는 것을 추천합니다.</p>
+            <p style="font-size:13.5px;color:#555;line-height:1.7">가능하지만 권장하지 않습니다. 각 챕터는 용도가 다르게 설계되어 있어서 하나로 합치면 정확도가 떨어질 수 있습니다. 챕터별로 각각 등록하세요.</p>
           </div>
           <div>
             <p style="font-weight:600;margin-bottom:4px">Q. 만든 Gem을 다른 목회자와 공유할 수 있나요?</p>
-            <p style="font-size:13.5px;color:#555;line-height:1.7">Gemini GEMS는 현재 공유 기능이 없습니다. 이 E-Book의 링크를 공유하거나, 각 챕터의 프롬프트를 직접 전달해서 상대방이 직접 등록하도록 안내하세요. ChatGPT GPTs는 링크 공유가 가능합니다.</p>
+            <p style="font-size:13.5px;color:#555;line-height:1.7">Gemini GEMS는 현재 공유 기능이 없습니다. 이 E-Book의 링크를 공유하거나, 각 챕터의 프롬프트를 직접 전달해서 상대방이 직접 등록하도록 안내하세요.</p>
           </div>
         </div>
       </div>
@@ -1168,7 +1231,6 @@ function renderGuide() {
   };
 }
 
-// Render sidebar nav
 function renderSidebar() {
   const nav = document.getElementById('sidebar-nav');
   let html = '';
