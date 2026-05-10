@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>비전 캠프 사전 준비 가이드</title>
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #EEF2FF;
+      --required: #DC2626;
+      --required-light: #FEF2F2;
+      --optional: #059669;
+      --optional-light: #ECFDF5;
+      --warning: #D97706;
+      --warning-light: #FFFBEB;
+      --step: #7C3AED;
+      --step-light: #F5F3FF;
+      --gray: #6B7280;
+      --dark: #111827;
+      --border: #E5E7EB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background: #F9FAFB;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    .hero {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      color: white;
+      text-align: center;
+      padding: 56px 24px 48px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 4px 16px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.88;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
+      background: var(--warning-light);
+      border-left: 5px solid var(--warning);
+      border-radius: 0 12px 12px 0;
+      margin: 28px auto;
+      max-width: 780px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .notice .icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .notice p { font-size: 15px; color: #92400E; font-weight: 600; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      max-width: 780px;
+      margin: 0 auto 32px;
+      padding: 0 20px;
+    }
+    .progress-label {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .progress-bar-bg {
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #4F46E5, #7C3AED);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    .progress-count {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* ── MAIN ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── SECTION CARD ── */
+    .section {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    /* 섹션별 헤더 색상 */
+    .section-header.amber  { background: linear-gradient(135deg, #FFF7ED, #FEF3C7); border-left: 5px solid #F59E0B; }
+    .section-header.red    { background: linear-gradient(135deg, #FEF2F2, #FEE2E2); border-left: 5px solid #DC2626; }
+    .section-header.purple { background: linear-gradient(135deg, #F5F3FF, #EDE9FE); border-left: 5px solid #7C3AED; }
+    .section-header.green  { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); border-left: 5px solid #059669; }
+
+    .section-header .emoji { font-size: 24px; }
+    .section-header .text h2 { font-size: 18px; font-weight: 800; }
+    .section-header.amber  .text h2 { color: #92400E; }
+    .section-header.red    .text h2 { color: #991B1B; }
+    .section-header.purple .text h2 { color: #5B21B6; }
+    .section-header.green  .text h2 { color: #065F46; }
+    .section-header .text span { font-size: 13px; color: var(--gray); }
+
+    /* 섹션 바디 들여쓰기 + 컬러 왼쪽 라인 */
+    .section-body {
+      padding: 20px 24px;
+    }
+    .section-body.indent {
+      padding-left: 32px;
+      border-left: 3px solid transparent;
+      margin-left: 16px;
+      margin-right: 8px;
+      border-radius: 0 0 0 4px;
+    }
+    .section-body.indent.amber  { border-left-color: #FCD34D; }
+    .section-body.indent.red    { border-left-color: #FCA5A5; }
+    .section-body.indent.purple { border-left-color: #C4B5FD; }
+    .section-body.indent.green  { border-left-color: #6EE7B7; }
+
+    /* ── TAG BADGE ── */
+    .tag {
+      display: inline-block;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      letter-spacing: 0.5px;
+    }
+    .tag.required { background: var(--required-light); color: var(--required); }
+    .tag.optional { background: var(--optional-light); color: var(--optional); }
+    .tag.prep     { background: var(--step-light); color: var(--step); }
+
+    /* ── CHECKLIST ITEM ── */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 8px;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-item:hover { background: #F9FAFB; }
+    .check-item.done .check-label { text-decoration: line-through; opacity: 0.45; }
+    .check-item.done .check-box { background: var(--primary); border-color: var(--primary); }
+    .check-item.done .check-box::after {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 10px;
+      border: 2px solid white;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+      margin: 2px auto 0;
+    }
+
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s;
+    }
+
+    .check-label { flex: 1; }
+    .check-label .num {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 22px;
+      margin-right: 6px;
+    }
+    .check-label strong { font-size: 16px; font-weight: 700; }
+    .check-label p { font-size: 13px; color: var(--gray); margin-top: 2px; margin-left: 28px; }
+
+    /* ── LINK BUTTON ── */
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      margin-left: 28px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .link-btn:hover { background: #C7D2FE; }
+    .link-btn .arrow { font-size: 14px; }
+
+    .link-btn.green { background: var(--optional-light); color: var(--optional); }
+    .link-btn.green:hover { background: #A7F3D0; }
+
+    .link-btn.download {
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 15px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-left: 0;
+    }
+    .link-btn.download:hover { background: #FDE68A; }
+
+    /* ── MATERIAL ITEM ── */
+    .material-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #F9FAFB;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
+    .material-item:last-child { border-bottom: none; margin-bottom: 0; }
+    .material-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .material-icon.blue  { background: var(--primary-light); }
+    .material-icon.amber { background: var(--warning-light); }
+    .material-icon.purple { background: var(--step-light); }
+    .material-text strong { font-size: 14px; font-weight: 700; }
+    .material-text p { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+    /* ── TIP BOX ── */
+    .tip {
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #166534;
+      display: flex;
+      gap: 8px;
+    }
+    .tip .tip-icon { flex-shrink: 0; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 14px;
+    }
+    .section-divider .line { flex: 1; height: 1px; background: var(--border); }
+    .section-divider span { font-size: 12px; font-weight: 700; color: var(--gray); }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    /* ── COMPLETE BANNER ── */
+    .complete-banner {
+      display: none;
+      background: linear-gradient(135deg, #059669, #047857);
+      color: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .complete-banner.show { display: block; }
+    .complete-banner h3 { font-size: 20px; margin-bottom: 4px; }
+    .complete-banner p { font-size: 14px; opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">📋 사전 준비 가이드</div>
+  <h1>비전 캠프 교육 준비</h1>
+  <p>교육 당일 원활한 진행을 위해 아래 항목을 미리 완료해 주세요.</p>
+</div>
+
+<!-- NOTICE -->
+<div class="notice" style="margin-left:auto;margin-right:auto;max-width:780px;margin-top:28px;">
+  <div class="icon">⚠️</div>
+  <p>현장에서는 시간 관계상 세팅이 불가합니다.<br>반드시 교육 시작 전에 모든 항목을 완료해 오세요!</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-label">준비 진행률</div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-count" id="progressCount">0 / 12 완료</div>
+</div>
+
+<div class="container">
+
+  <!-- COMPLETE BANNER -->
+  <div class="complete-banner" id="completeBanner">
+    <h3>🎉 모든 준비 완료!</h3>
+    <p>비전 캠프 교육 준비가 끝났습니다. 당일 뵙겠습니다!</p>
+  </div>
+
+  <!-- ① 준비물 -->
+  <div class="section">
+    <div class="section-header amber">
+      <span class="emoji">🎒</span>
+      <div class="text">
+        <h2>준비물</h2>
+        <span>교육 당일 지참해야 할 물품</span>
+      </div>
+    </div>
+    <div class="section-body indent amber">
+
+      <div class="material-item">
+        <div class="material-icon blue">📄</div>
+        <div class="material-text">
+          <strong>개인 설교 1~2개 준비</strong>
+          <p>HWP 파일 형식으로 저장하여 USB 또는 이메일로 가져오세요.</p>
+        </div>
+      </div>
+
+      <div class="material-item">
+        <div class="material-icon amber">📰</div>
+        <div class="material-text">
+          <strong>교회 주보 준비</strong>
+          <p>종이 주보로 준비해 주세요. (인쇄본)</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ② 필수 설치 -->
+  <div class="section">
+    <div class="section-header red">
+      <span class="emoji">✅</span>
+      <div class="text">
+        <h2>필수 설치 프로그램</h2>
+        <span>모든 프로그램은 구글 ID로 로그인하면 됩니다.</span>
+      </div>
+      <span class="tag required">필수</span>
+    </div>
+    <div class="section-body indent red">
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">1</span><strong>Google 크롬 설치 &amp; 구글 로그인</strong></div>
+          <p>크롬 브라우저가 없다면 설치하고, 구글 계정으로 로그인까지 완료해 주세요.</p>
+          <a href="https://www.google.com/intl/ko_kr/chrome/" target="_blank" class="link-btn">
+            🌐 크롬 설치하기 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">2</span><strong>ChatGPT 로그인 완료</strong></div>
+          <p>구글 계정으로 로그인 후 정상 작동하는지 확인해 주세요.</p>
+          <a href="https://chatgpt.com/" target="_blank" class="link-btn">
+            🤖 ChatGPT 접속 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">3</span><strong>Gemini 로그인 완료</strong></div>
+          <p>구글 AI 서비스입니다. 구글 계정으로 로그인하세요.</p>
+          <a href="https://gemini.google.com/app" target="_blank" class="link-btn">
+            ✨ Gemini 접속 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">4</span><strong>NotebookLM 로그인 완료</strong></div>
+          <p>구글에서 만든 AI 노트 도구입니다. 구글 계정으로 로그인하세요.</p>
+          <a href="https://notebooklm.google.com/" target="_blank" class="link-btn">
+            📓 NotebookLM 접속 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">5</span><strong>FLOW 로그인 완료</strong></div>
+          <p>구글 AI 영상 생성 도구입니다. 구글 계정으로 로그인하세요.</p>
+          <a href="https://labs.google/fx/ko/tools/flow" target="_blank" class="link-btn">
+            🎬 FLOW 접속 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">6</span><strong>Pinterest 로그인 완료</strong></div>
+          <p>이미지 참고용 플랫폼입니다. 구글 계정으로 로그인하세요.</p>
+          <a href="https://kr.pinterest.com/" target="_blank" class="link-btn">
+            📌 Pinterest 접속 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ③ 예배 PPT 준비 -->
+  <div class="section">
+    <div class="section-header purple">
+      <span class="emoji">📊</span>
+      <div class="text">
+        <h2>예배 PPT 준비사항</h2>
+        <span>TV·빔프로젝터용 예배 PPT 제작에 필요한 환경</span>
+      </div>
+      <span class="tag prep">준비</span>
+    </div>
+    <div class="section-body indent purple">
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">1</span><strong>PPT 생성 자료 다운로드 &amp; 압축 해제</strong></div>
+          <p>아래 버튼을 클릭해 전체 파일을 다운로드하고 컴퓨터에 압축을 풀어주세요.</p>
+          <a href="https://naver.me/FG3rdi5U" target="_blank" class="link-btn download" style="margin-top:10px;">
+            ⬇️ &nbsp;PPT 자료 다운로드 받기
+          </a>
+          <div class="tip" style="margin-top:10px;">
+            <span class="tip-icon">💡</span>
+            <span>다운로드 후 <strong>압축 해제</strong>까지 완료해 주세요!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">2</span><strong>Excel &amp; PowerPoint 설치 확인</strong></div>
+          <p>반드시 <strong>2019 이상 버전</strong>이어야 합니다. 설치 후 정상 실행까지 확인해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">3</span><strong>예배순서 PPT 프로그램 다운로드 &amp; 설치</strong></div>
+          <p>위에서 다운로드한 파일 안에 포함되어 있습니다. 압축 해제 후 설치하세요.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ④ 선택 사항 -->
+  <div class="section">
+    <div class="section-header green">
+      <span class="emoji">⚡</span>
+      <div class="text">
+        <h2>선택 사항 — Speed Dial 설치</h2>
+        <span>자주 쓰는 웹사이트를 빠르게 여는 크롬 확장 프로그램 (크롬 전용)</span>
+      </div>
+      <span class="tag optional">선택</span>
+    </div>
+    <div class="section-body indent green">
+
+      <!-- 설명 박스 -->
+      <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:12px;padding:16px 18px;margin-bottom:16px;">
+        <p style="font-size:14px;color:#166534;line-height:1.8;">
+          위 <strong>필수 설치 프로그램</strong>에서 가입·로그인을 완료한 후,<br>
+          각 AI 툴의 주소를 <strong>Speed Dial에 등록</strong>해두면 크롬 새 탭을 열 때마다<br>
+          한 번의 클릭으로 바로 접속할 수 있어 교육 중 훨씬 편리하게 사용할 수 있습니다!
+        </p>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><strong>Speed Dial 크롬 확장 설치</strong></div>
+          <p>아래 버튼으로 크롬 웹스토어에서 설치하세요.</p>
+          <a href="https://chromewebstore.google.com/detail/speed-dial/ejbjamhkdedinncaeiackcdehpccoejm?hl=ko" target="_blank" class="link-btn green" style="margin-left:0;margin-top:8px;">
+            ⚡ Speed Dial 설치하기 <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 설치 방법 가이드 -->
+      <div style="margin-top:16px;">
+        <div class="section-divider">
+          <div class="line"></div>
+          <span>설치 방법 따라하기</span>
+          <div class="line"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- STEP 1 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">1</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;margin-bottom:10px;">Speed Dial 설치 페이지에서 파란색 <strong>「Chrome에 추가」</strong> 버튼을 클릭합니다.</div>
+              <img src="images/img_01.png" alt="Speed Dial 크롬 웹스토어 페이지" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">2</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;margin-bottom:10px;">크롬 탭 오른쪽의 <strong>「 + 」 버튼</strong>을 클릭하면 아래와 같은 화면이 나타납니다.</div>
+              <img src="images/img_02.png" alt="크롬 새 탭 + 버튼" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-bottom:8px;">
+              <img src="images/img_03.png" alt="Speed Dial 새 탭 화면" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">3</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;margin-bottom:10px;">화면 중앙의 <strong>흰색 「 + 」 버튼</strong>을 클릭합니다.</div>
+              <img src="images/img_04.png" alt="흰색 + 버튼 클릭" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">4</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;margin-bottom:10px;">새 창이 뜨면 <strong>「Link to the page」</strong>에 URL 주소, <strong>「Caption」</strong>에 이름을 입력한 후 <strong>「Add」</strong>를 클릭합니다.</div>
+              <img src="images/img_05.png" alt="Add to bookmarks 다이얼로그" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+
+          <!-- STEP 5 -->
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">5</div>
+            <div style="flex:1;">
+              <div style="font-size:14px;margin-bottom:10px;">바로가기가 등록됩니다. <strong>「 + 」 버튼</strong>을 반복해 나머지 AI 툴들도 모두 추가하세요.</div>
+              <img src="images/img_06.png" alt="바로가기 등록 완료 화면" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tip" style="margin-top:16px;background:#ECFDF5;border-color:#6EE7B7;">
+          <span class="tip-icon">🌟</span>
+          <span>세팅이 가능하신 분은 위 <strong>필수 설치 프로그램의 모든 AI 툴 링크</strong>를 Speed Dial에 등록해 두시면 교육 중 훨씬 빠르게 활용할 수 있습니다!</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  문의사항이 있으시면 교육 담당자에게 연락해 주세요.<br>
+  <span style="font-size:12px;opacity:0.6;">비전 캠프 사전 준비 가이드</span>
+</div>
+
+<script>
+  const TOTAL = 12;
+
+  function toggle(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const done = document.querySelectorAll('.check-item.done').length;
+    const pct = Math.round((done / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = done + ' / ' + TOTAL + ' 완료';
+
+    const banner = document.getElementById('completeBanner');
+    if (done === TOTAL) {
+      banner.classList.add('show');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+</script>
+</body>
+</html>
