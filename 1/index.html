@@ -809,9 +809,10 @@ const chapters = [
     nameNoCopy: true,
     descTitle: '진행 순서',
     descNoCopy: true,
+    noGemsHowto: true,
     optionGroups: [
-      { label:'대상 선택', key:'ch1-target', placeholder:'<<target>>', options:['일반설교','청년부','학생부','초등부','유아유치부','교사모임','새가족반'] },
-      { label:'슬라이드 형식 선택', key:'ch1-format', placeholder:'<<format>>', options:['일반 설교형','핵심 문장 중심형','핵심 구절 중심형','이미지 중심형','도식화 중심형','적용 질문 포함형'] },
+      { label:'대상 선택', key:'ch1-target', placeholder:'<<target>>', options:['일반설교','청년부','학생부','초등부','유아유치부'] },
+      { label:'슬라이드 형식 선택', key:'ch1-format', placeholder:'<<format>>', options:['일반 설교형','핵심 문장 중심형','핵심 구절 중심형','이미지 중심형','도식화 중심형'] },
       { label:'시각 구성 선택', key:'ch1-visual', placeholder:'<<visual>>', options:['텍스트 중심','텍스트+핵심구절','텍스트+이미지 제안','텍스트+도식 제안','최소 텍스트형'] }
     ],
     nameId:'p1-name', descId:'p1-desc', promptId:'p1-prompt',
@@ -1336,14 +1337,16 @@ function renderChapter(ch) {
 
     // Gems how-to
     if (ch.hasGems) {
-      html += `<div class="howto-box">
-        <h4>🔧 Gemini GEMS 등록 방법</h4>
-        <ul class="howto-list">
-          <li><a href="https://gemini.google.com/" target="_blank">gemini.google.com</a> 접속 → 좌측 <b>Gems</b> 클릭 → <b>+ 새 Gem</b></li>
-          <li>아래 각 항목을 순서대로 복사해서 붙여넣기</li>
-          <li>ChatGPT GPTs도 동일: <a href="https://chatgpt.com/" target="_blank">chatgpt.com</a> → 탐색 → GPT 만들기 → 구성</li>
-        </ul>
-      </div>`;
+      if (!ch.noGemsHowto) {
+        html += `<div class="howto-box">
+          <h4>🔧 Gemini GEMS 등록 방법</h4>
+          <ul class="howto-list">
+            <li><a href="https://gemini.google.com/" target="_blank">gemini.google.com</a> 접속 → 좌측 <b>Gems</b> 클릭 → <b>+ 새 Gem</b></li>
+            <li>아래 각 항목을 순서대로 복사해서 붙여넣기</li>
+            <li>ChatGPT GPTs도 동일: <a href="https://chatgpt.com/" target="_blank">chatgpt.com</a> → 탐색 → GPT 만들기 → 구성</li>
+          </ul>
+        </div>`;
+      }
 
       // Name
       const name = getPrompt(ch.nameId);
@@ -1405,7 +1408,7 @@ function renderChapter(ch) {
         </div>
       </div>
       <div style="margin-top:20px;text-align:center;">
-        <button id="ch1-copy-all-btn" onclick="ch1CopyAll(this)" style="padding:14px 36px;background:var(--accent);color:#1a2840;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(201,165,64,0.25);transition:all 0.15s;">📋 프롬프트 전체 복사</button>
+        <button id="ch1-copy-all-btn" onclick="ch1CopyAll(this)" style="padding:14px 36px;background:var(--accent);color:#1a2840;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(201,165,64,0.25);transition:all 0.15s;">📋 프롬프트 전체 복사 (모든 옵션)</button>
       </div>`;
     }
   }
@@ -1586,11 +1589,20 @@ function ch1SelectOpt(groupKey, value, placeholder, btn) {
   document.getElementById('pre-ch1-prompt').textContent = result;
 }
 function ch1CopyAll(btn) {
-  const text = document.getElementById('pre-ch1-prompt').textContent;
+  const base = document.getElementById('p1-prompt').textContent;
+  const groups = [
+    { placeholder:'<<target>>', label:'대상 선택', options:['일반설교','청년부','학생부','초등부','유아유치부'] },
+    { placeholder:'<<format>>', label:'슬라이드 형식 선택', options:['일반 설교형','핵심 문장 중심형','핵심 구절 중심형','이미지 중심형','도식화 중심형'] },
+    { placeholder:'<<visual>>', label:'시각 구성 선택', options:['텍스트 중심','텍스트+핵심구절','텍스트+이미지 제안','텍스트+도식 제안','최소 텍스트형'] }
+  ];
+  let text = base;
+  groups.forEach(g => {
+    text = text.replace(g.placeholder, g.options.join(' / '));
+  });
   navigator.clipboard.writeText(text).then(() => {
     btn.textContent = '✓ 복사됨!';
     btn.style.background = '#22c55e';
-    setTimeout(() => { btn.textContent = '📋 프롬프트 전체 복사'; btn.style.background = 'var(--accent)'; }, 2000);
+    setTimeout(() => { btn.textContent = '📋 프롬프트 전체 복사 (모든 옵션)'; btn.style.background = 'var(--accent)'; }, 2000);
   }).catch(() => {
     const ta = document.createElement('textarea');
     ta.value = text;
@@ -1599,7 +1611,7 @@ function ch1CopyAll(btn) {
     document.execCommand('copy');
     document.body.removeChild(ta);
     btn.textContent = '✓ 복사됨!';
-    setTimeout(() => { btn.textContent = '📋 프롬프트 전체 복사'; }, 2000);
+    setTimeout(() => { btn.textContent = '📋 프롬프트 전체 복사 (모든 옵션)'; }, 2000);
   });
 }
 
