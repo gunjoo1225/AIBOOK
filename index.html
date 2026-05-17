@@ -129,6 +129,11 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 .copy-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; transition: all 0.15s; z-index: 2; }
 .copy-btn:hover { background: var(--accent); border-color: var(--accent); color: #1a2840; }
 .copy-btn.copied { background: #22c55e; border-color: #22c55e; color: #fff; }
+.option-group-label { font-size: 11.5px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; }
+.opt-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.opt-btn { padding: 5px 13px; border-radius: 20px; border: 1.5px solid #ddd; background: #fff; font-size: 12.5px; cursor: pointer; color: #555; transition: all 0.15s; }
+.opt-btn:hover { border-color: #a0b4d6; color: #1a2840; }
+.opt-btn.active { border-color: #4f8ef7; background: #e8f0fe; color: #1a56db; font-weight: 600; }
 
 /* Info note */
 .info-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #92400e; display: flex; gap: 8px; align-items: flex-start; }
@@ -210,9 +215,9 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 (※ 주의: 슬라이드 화면에 `<1>`, `<2>` 기호나 '서론', '1대지', '결론' 같은 목차 단어는 절대 노출하지 마세요.)
 
 ### 1. 사용자 선택 옵션
-- [대상 선택]: (일반설/ 청년부 / 학생부 / 초등부 / 유아유치부 / 교사모임 / 새가족반) 중 택 1
-- [슬라이드 형식 선택]: (일반 설교형 / 핵심 문장 중심형 / 핵심 구절 중심형 / 이미지 중심형 / 도식화 중심형 / 적용 질문 포함형) 중 택 1
-- [시각 구성 선택]: (텍스트 중심 / 텍스트+핵심구절 / 텍스트+이미지 제안 / 텍스트+도식 제안 / 최소 텍스트형) 중 택 1
+- [대상 선택]: <<target>>
+- [슬라이드 형식 선택]: <<format>>
+- [시각 구성 선택]: <<visual>>
 
 ### 2. 슬라이드 구성 규칙 (숫자 기호에 따라 다음 역할을 엄격히 부여합니다)
 - [첫 번째 장 (<1> 기호)]: 무조건 '제목 슬라이드'로 고정합니다. `<1>` 기호가 있는 부분의 설교 제목을 메인 텍스트로, 성경 장절을 서브 텍스트로 추출하여 넣습니다.
@@ -801,6 +806,14 @@ const chapters = [
     ],
     gemType:'NotebookLM',
     hasGems: true,
+    nameNoCopy: true,
+    descTitle: '진행 순서',
+    descNoCopy: true,
+    optionGroups: [
+      { label:'대상 선택', key:'ch1-target', placeholder:'<<target>>', options:['일반설교','청년부','학생부','초등부','유아유치부','교사모임','새가족반'] },
+      { label:'슬라이드 형식 선택', key:'ch1-format', placeholder:'<<format>>', options:['일반 설교형','핵심 문장 중심형','핵심 구절 중심형','이미지 중심형','도식화 중심형','적용 질문 포함형'] },
+      { label:'시각 구성 선택', key:'ch1-visual', placeholder:'<<visual>>', options:['텍스트 중심','텍스트+핵심구절','텍스트+이미지 제안','텍스트+도식 제안','최소 텍스트형'] }
+    ],
     nameId:'p1-name', descId:'p1-desc', promptId:'p1-prompt',
     note:'NotebookLM은 GEMS/GPTS 방식이 아닌 소스 등록 후 슬라이드 생성 기능을 사용합니다. 아래 요청사항을 슬라이드 설명란에 붙여넣으세요.'
   },
@@ -1340,7 +1353,7 @@ function renderChapter(ch) {
           <div class="prompt-block">
             <div class="code-wrap">
               <pre class="short" id="pre-${ch.id}-name">${escHtml(name)}</pre>
-              <button class="copy-btn" onclick="copyCode('pre-${ch.id}-name', this)">복사</button>
+              ${ch.nameNoCopy ? '' : `<button class="copy-btn" onclick="copyCode('pre-${ch.id}-name', this)">복사</button>`}
             </div>
           </div>
         </div>
@@ -1348,27 +1361,44 @@ function renderChapter(ch) {
 
       // Description
       const desc = getPrompt(ch.descId);
+      const descTitle = ch.descTitle || '설명 (Description)';
       html += `<div class="section-card">
-        <div class="section-card-header"><span class="sec-icon">📝</span><h3>② 설명 (Description)</h3></div>
+        <div class="section-card-header"><span class="sec-icon">📝</span><h3>② ${escHtml(descTitle)}</h3></div>
         <div class="section-card-body">
           <div class="prompt-block">
             <div class="code-wrap">
               <pre class="short" id="pre-${ch.id}-desc">${escHtml(desc)}</pre>
-              <button class="copy-btn" onclick="copyCode('pre-${ch.id}-desc', this)">복사</button>
+              ${ch.descNoCopy ? '' : `<button class="copy-btn" onclick="copyCode('pre-${ch.id}-desc', this)">복사</button>`}
             </div>
           </div>
         </div>
       </div>`;
 
       // Prompt
-      const prompt = getPrompt(ch.promptId);
+      const promptTpl = getPrompt(ch.promptId);
+      let promptInit = promptTpl;
+      if (ch.optionGroups) {
+        ch.optionGroups.forEach(g => { promptInit = promptInit.replace(g.placeholder, g.options[0]); });
+      }
+      let optGroupHtml = '';
+      if (ch.optionGroups) {
+        optGroupHtml = `<div class="option-selector" style="margin-bottom:16px;">` +
+          ch.optionGroups.map(g => `
+            <div class="option-group" style="margin-bottom:12px;">
+              <div class="option-group-label">${escHtml(g.label)}</div>
+              <div class="opt-btns">
+                ${g.options.map((o, i) => `<button class="opt-btn${i===0?' active':''}" data-group="${g.key}" onclick="ch1SelectOpt('${g.key}','${escHtml(o)}','${g.placeholder}',this)">${escHtml(o)}</button>`).join('')}
+              </div>
+            </div>`).join('') + `</div>`;
+      }
       html += `<div class="section-card">
         <div class="section-card-header"><span class="sec-icon">⚡</span><h3>③ 요청사항 (핵심 프롬프트)</h3></div>
         <div class="section-card-body">
           <div class="info-note" style="margin-bottom:12px"><span class="note-icon">📌</span><span>이 내용 전체를 복사해서 Gem 지침란 / GPT 지침란에 붙여넣으세요.</span></div>
+          ${optGroupHtml}
           <div class="prompt-block">
             <div class="code-wrap">
-              <pre id="pre-${ch.id}-prompt">${escHtml(prompt)}</pre>
+              <pre id="pre-${ch.id}-prompt">${escHtml(promptInit)}</pre>
               <button class="copy-btn" onclick="copyCode('pre-${ch.id}-prompt', this)">복사</button>
             </div>
           </div>
@@ -1542,6 +1572,17 @@ function escHtml(str) {
 }
 
 // Copy code
+const _ch1Selections = { '<<target>>':'일반설교', '<<format>>':'일반 설교형', '<<visual>>':'텍스트 중심' };
+function ch1SelectOpt(groupKey, value, placeholder, btn) {
+  document.querySelectorAll(`[data-group="${groupKey}"]`).forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  _ch1Selections[placeholder] = value;
+  const base = document.getElementById('p1-prompt').textContent;
+  let result = base;
+  Object.entries(_ch1Selections).forEach(([k, v]) => { result = result.replace(k, v); });
+  document.getElementById('pre-ch1-prompt').textContent = result;
+}
+
 function copyCode(preId, btn) {
   const pre = document.getElementById(preId);
   const text = pre.textContent;
