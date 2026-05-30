@@ -56,6 +56,62 @@
       opacity: 0.88;
     }
 
+    /* ── IMAGE COLLAPSE ── */
+    .img-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #4F46E5;
+      background: #EEF2FF;
+      border: 1.5px solid #C7D2FE;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s;
+      user-select: none;
+    }
+    .img-toggle-btn:hover { background: #E0E7FF; }
+    .img-toggle-btn .arrow { transition: transform 0.25s; display: inline-block; }
+    .img-toggle-btn.open .arrow { transform: rotate(180deg); }
+
+    .img-collapse {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s;
+      opacity: 0;
+      margin-top: 0;
+    }
+    .img-collapse.open {
+      max-height: 2000px;
+      opacity: 1;
+      margin-top: 10px;
+    }
+
+    .guide-toggle-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin: 12px 0 4px;
+      padding: 8px 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: #059669;
+      background: #ECFDF5;
+      border: 1.5px solid #A7F3D0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+      user-select: none;
+    }
+    .guide-toggle-btn:hover { background: #D1FAE5; }
+    .guide-toggle-btn .arrow { transition: transform 0.25s; display: inline-block; }
+    .guide-toggle-btn.open .arrow { transform: rotate(180deg); }
+
     /* ── DEVICE BADGE ── */
     .title-row {
       display: flex;
@@ -531,7 +587,10 @@
           <a href="https://naver.me/FG3rdi5U" target="_blank" class="link-btn download" style="margin-top:10px;">
             ⬇️ &nbsp;PPT 자료 다운로드 받기
           </a>
-          <img src="images/img_download.png" alt="MYBOX 파일 선택 후 내려받기 클릭 안내" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-top:12px;">
+          <button class="img-toggle-btn" onclick="toggleImg(this)">📷 이미지 안내 보기 <span class="arrow">▼</span></button>
+          <div class="img-collapse">
+            <img src="images/img_download.png" alt="MYBOX 파일 선택 후 내려받기 클릭 안내" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+          </div>
           <div class="tip" style="margin-top:10px;">
             <span class="tip-icon">💡</span>
             <span>다운로드 후 <strong>압축 해제</strong>까지 완료해 주세요!</span>
@@ -597,6 +656,8 @@
           <span>설치 방법 따라하기</span>
           <div class="line"></div>
         </div>
+        <button class="guide-toggle-btn" onclick="toggleGuide(this)">📋 설치 방법 이미지 가이드 펼치기 <span class="arrow">▼</span></button>
+        <div class="img-collapse" id="guide-steps">
 
         <div style="display:flex;flex-direction:column;gap:20px;">
 
@@ -605,7 +666,8 @@
             <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">1</div>
             <div style="flex:1;">
               <div style="font-size:14px;margin-bottom:10px;">Speed Dial 설치 페이지에서 파란색 <strong>「Chrome에 추가」</strong> 버튼을 클릭합니다.</div>
-              <img src="images/img_01.png" alt="Speed Dial 크롬 웹스토어 페이지" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+              <button class="img-toggle-btn" onclick="toggleImg(this)">📷 이미지 보기 <span class="arrow">▼</span></button>
+              <div class="img-collapse"><img src="images/img_01.png" alt="Speed Dial 크롬 웹스토어 페이지" style="width:100%;border-radius:8px;border:1px solid var(--border);"></div>
             </div>
           </div>
 
@@ -614,8 +676,11 @@
             <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">2</div>
             <div style="flex:1;">
               <div style="font-size:14px;margin-bottom:10px;">크롬 탭 오른쪽의 <strong>「 + 」 버튼</strong>을 클릭하면 아래와 같은 화면이 나타납니다.</div>
-              <img src="images/img_02.png" alt="크롬 새 탭 + 버튼" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-bottom:8px;">
-              <img src="images/img_03.png" alt="Speed Dial 새 탭 화면" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+              <button class="img-toggle-btn" onclick="toggleImg(this)">📷 이미지 보기 <span class="arrow">▼</span></button>
+              <div class="img-collapse">
+                <img src="images/img_02.png" alt="크롬 새 탭 + 버튼" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-bottom:8px;">
+                <img src="images/img_03.png" alt="Speed Dial 새 탭 화면" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+              </div>
             </div>
           </div>
 
@@ -624,7 +689,8 @@
             <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">3</div>
             <div style="flex:1;">
               <div style="font-size:14px;margin-bottom:10px;">화면 중앙의 <strong>흰색 「 + 」 버튼</strong>을 클릭합니다.</div>
-              <img src="images/img_04.png" alt="흰색 + 버튼 클릭" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+              <button class="img-toggle-btn" onclick="toggleImg(this)">📷 이미지 보기 <span class="arrow">▼</span></button>
+              <div class="img-collapse"><img src="images/img_04.png" alt="흰색 + 버튼 클릭" style="width:100%;border-radius:8px;border:1px solid var(--border);"></div>
             </div>
           </div>
 
@@ -633,7 +699,8 @@
             <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">4</div>
             <div style="flex:1;">
               <div style="font-size:14px;margin-bottom:10px;">새 창이 뜨면 <strong>「Link to the page」</strong>에 URL 주소, <strong>「Caption」</strong>에 이름을 입력한 후 <strong>「Add」</strong>를 클릭합니다.</div>
-              <img src="images/img_05.png" alt="Add to bookmarks 다이얼로그" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+              <button class="img-toggle-btn" onclick="toggleImg(this)">📷 이미지 보기 <span class="arrow">▼</span></button>
+              <div class="img-collapse"><img src="images/img_05.png" alt="Add to bookmarks 다이얼로그" style="width:100%;border-radius:8px;border:1px solid var(--border);"></div>
             </div>
           </div>
 
@@ -642,11 +709,13 @@
             <div style="width:30px;height:30px;background:var(--optional);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px;">5</div>
             <div style="flex:1;">
               <div style="font-size:14px;margin-bottom:10px;">바로가기가 등록됩니다. <strong>「 + 」 버튼</strong>을 반복해 나머지 AI 툴들도 모두 추가하세요.</div>
-              <img src="images/img_06.png" alt="바로가기 등록 완료 화면" style="width:100%;border-radius:8px;border:1px solid var(--border);">
+              <button class="img-toggle-btn" onclick="toggleImg(this)">📷 이미지 보기 <span class="arrow">▼</span></button>
+              <div class="img-collapse"><img src="images/img_06.png" alt="바로가기 등록 완료 화면" style="width:100%;border-radius:8px;border:1px solid var(--border);"></div>
             </div>
           </div>
 
         </div>
+        </div><!-- /img-collapse guide-steps -->
 
         <div class="tip" style="margin-top:16px;background:#ECFDF5;border-color:#6EE7B7;">
           <span class="tip-icon">🌟</span>
@@ -686,6 +755,20 @@
     } else {
       banner.classList.remove('show');
     }
+  }
+
+  function toggleImg(btn) {
+    const wrap = btn.nextElementSibling;
+    const isOpen = wrap.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.childNodes[0].textContent = isOpen ? '📷 이미지 접기 ' : '📷 이미지 보기 ';
+  }
+
+  function toggleGuide(btn) {
+    const wrap = document.getElementById('guide-steps');
+    const isOpen = wrap.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.childNodes[0].textContent = isOpen ? '📋 설치 방법 이미지 가이드 접기 ' : '📋 설치 방법 이미지 가이드 펼치기 ';
   }
 
   function isChrome() {
