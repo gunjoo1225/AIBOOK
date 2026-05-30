@@ -56,6 +56,46 @@
       opacity: 0.88;
     }
 
+    /* ── DEVICE BADGE ── */
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .badge-device {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      border: 1.5px solid;
+      white-space: nowrap;
+    }
+    .badge-pc {
+      color: #1D4ED8;
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+    }
+    .badge-phone {
+      color: #BE185D;
+      background: #FDF2F8;
+      border-color: #FBCFE8;
+    }
+    .badge-both-sep { font-size: 11px; color: #EA580C; font-weight: 800; }
+    .badge-both-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF7ED;
+      border: 1.5px solid #FED7AA;
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+    .badge-both-label { font-size: 11px; color: #C2410C; font-weight: 700; white-space: nowrap; }
+
     /* ── NOTICE ── */
     .notice {
       background: var(--warning-light);
@@ -340,9 +380,9 @@
 </div>
 
 <!-- NOTICE -->
-<div class="notice" style="margin-left:auto;margin-right:auto;max-width:780px;margin-top:28px;">
-  <div class="icon">⚠️</div>
-  <p>현장에서는 시간 관계상 세팅이 불가합니다.<br>반드시 교육 시작 전에 모든 항목을 완료해 오세요!</p>
+<div class="notice" style="margin-left:auto;margin-right:auto;max-width:780px;margin-top:28px;background:#FEF2F2;border-left:6px solid #DC2626;padding:20px 24px;">
+  <div class="icon">🚨</div>
+  <p style="color:#991B1B;font-size:17px;font-weight:700;line-height:1.8;">현장에서는 시간 관계상 세팅이 불가합니다.<br>교육에 사용될 노트북에 반드시 모든 항목을 완료해 오세요!</p>
 </div>
 
 <!-- PROGRESS -->
@@ -407,7 +447,7 @@
       <div class="check-item" onclick="toggle(this)">
         <div class="check-box"></div>
         <div class="check-label">
-          <div><span class="num">1</span><strong>Google 크롬 설치 &amp; 구글 로그인</strong></div>
+          <div class="title-row"><span class="num">1</span><strong>Google 크롬 설치 &amp; 구글 로그인</strong><span class="badge-device badge-pc">💻 노트북</span></div>
           <p>크롬 브라우저가 없다면 설치하고, 구글 계정으로 로그인까지 완료해 주세요.</p>
           <a href="https://www.google.com/intl/ko_kr/chrome/" target="_blank" class="link-btn">
             🌐 크롬 설치하기 <span class="arrow">→</span>
@@ -418,8 +458,16 @@
       <div class="check-item" onclick="toggle(this)">
         <div class="check-box"></div>
         <div class="check-label">
-          <div><span class="num">2</span><strong>ChatGPT 로그인 완료</strong></div>
-          <p>구글 계정으로 로그인 후 정상 작동하는지 확인해 주세요.</p>
+          <div class="title-row">
+            <span class="num">2</span><strong>ChatGPT 로그인 완료</strong>
+            <span class="badge-both-notice">
+              <span class="badge-device badge-pc">💻 노트북</span>
+              <span class="badge-both-sep">+</span>
+              <span class="badge-device badge-phone">📱 핸드폰</span>
+              <span class="badge-both-label">두 기기 모두!</span>
+            </span>
+          </div>
+          <p>구글 계정으로 <strong>노트북과 핸드폰 각각</strong> 로그인 후 정상 작동하는지 확인해 주세요.</p>
           <a href="https://chatgpt.com/" target="_blank" class="link-btn">
             🤖 ChatGPT 접속 <span class="arrow">→</span>
           </a>
@@ -429,7 +477,7 @@
       <div class="check-item" onclick="toggle(this)">
         <div class="check-box"></div>
         <div class="check-label">
-          <div><span class="num">3</span><strong>NotebookLM 로그인 완료</strong></div>
+          <div class="title-row"><span class="num">3</span><strong>NotebookLM 로그인 완료</strong><span class="badge-device badge-pc">💻 노트북</span></div>
           <p>구글에서 만든 AI 노트 도구입니다. 구글 계정으로 로그인하세요.</p>
           <a href="https://notebooklm.google.com/" target="_blank" class="link-btn">
             📓 NotebookLM 접속 <span class="arrow">→</span>
@@ -440,7 +488,7 @@
       <div class="check-item" onclick="toggle(this)">
         <div class="check-box"></div>
         <div class="check-label">
-          <div><span class="num">4</span><strong>FLOW 로그인 완료</strong></div>
+          <div class="title-row"><span class="num">4</span><strong>FLOW 로그인 완료</strong><span class="badge-device badge-pc">💻 노트북</span></div>
           <p>구글 AI 영상 생성 도구입니다. 구글 계정으로 로그인하세요.</p>
           <a href="https://labs.google/fx/ko/tools/flow" target="_blank" class="link-btn">
             🎬 FLOW 접속 <span class="arrow">→</span>
@@ -451,7 +499,7 @@
       <div class="check-item" onclick="toggle(this)">
         <div class="check-box"></div>
         <div class="check-label">
-          <div><span class="num">5</span><strong>Canva 로그인 완료</strong></div>
+          <div class="title-row"><span class="num">5</span><strong>Canva 로그인 완료</strong><span class="badge-device badge-pc">💻 노트북</span></div>
           <p>디자인 제작 플랫폼입니다. 구글 계정으로 로그인하세요.</p>
           <a href="https://www.canva.com/" target="_blank" class="link-btn">
             🎨 Canva 접속 <span class="arrow">→</span>
@@ -526,10 +574,18 @@
       <div class="check-item" onclick="toggle(this)">
         <div class="check-box"></div>
         <div class="check-label">
-          <div><strong>Speed Dial 크롬 확장 설치</strong></div>
-          <p>아래 버튼으로 크롬 웹스토어에서 설치하세요.</p>
-          <a href="https://chromewebstore.google.com/detail/speed-dial/ejbjamhkdedinncaeiackcdehpccoejm?hl=ko" target="_blank" class="link-btn green" style="margin-left:0;margin-top:8px;">
-            ⚡ Speed Dial 설치하기 <span class="arrow">→</span>
+          <div class="title-row"><strong>Speed Dial 크롬 확장 설치</strong><span class="badge-device badge-pc">💻 노트북</span></div>
+          <div style="margin-top:8px;background:#FEF2F2;border:1.5px solid #FCA5A5;border-radius:10px;padding:12px 14px;">
+            <p style="color:#991B1B;font-size:13px;font-weight:700;margin-bottom:6px;">🔴 반드시 구글 크롬 브라우저에서 설치해야 합니다!</p>
+            <p style="color:#7F1D1D;font-size:13px;margin-bottom:10px;">크롬이 아닌 다른 브라우저(엣지, 삼성 인터넷 등)에서는 설치되지 않습니다.<br>크롬을 열고 아래 주소를 주소창에 붙여넣어 주세요.</p>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <input id="sdurl" type="text" readonly value="https://chromewebstore.google.com/detail/speed-dial/ejbjamhkdedinncaeiackcdehpccoejm?hl=ko"
+                style="flex:1;font-size:12px;padding:6px 10px;border:1px solid #FCA5A5;border-radius:6px;color:#374151;background:#fff;min-width:0;">
+              <button onclick="copySD()" style="background:#DC2626;color:white;border:none;border-radius:6px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">📋 복사</button>
+            </div>
+          </div>
+          <a href="https://chromewebstore.google.com/detail/speed-dial/ejbjamhkdedinncaeiackcdehpccoejm?hl=ko" target="_blank" class="link-btn green" style="margin-left:0;margin-top:10px;" onclick="return checkChrome(event)">
+            ⚡ Speed Dial 설치하기 (크롬 전용) <span class="arrow">→</span>
           </a>
         </div>
       </div>
@@ -630,6 +686,30 @@
     } else {
       banner.classList.remove('show');
     }
+  }
+
+  function isChrome() {
+    const ua = navigator.userAgent;
+    return /Chrome\//.test(ua) && !/Edg\//.test(ua) && !/OPR\//.test(ua) && !/SamsungBrowser\//.test(ua);
+  }
+
+  function checkChrome(e) {
+    if (!isChrome()) {
+      e.preventDefault();
+      document.getElementById('chrome-warn').style.display = 'block';
+      document.getElementById('chrome-warn').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return false;
+    }
+    return true;
+  }
+
+  function copySD() {
+    const val = document.getElementById('sdurl').value;
+    navigator.clipboard.writeText(val).then(() => {
+      const btn = event.target;
+      btn.textContent = '✅ 복사됨!';
+      setTimeout(() => { btn.textContent = '📋 복사'; }, 2000);
+    });
   }
 </script>
 </body>
