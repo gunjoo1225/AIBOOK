@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    { "source": "/1", "destination": "/404", "statusCode": 404 },
+    { "source": "/1/(.*)", "destination": "/404", "statusCode": 404 },
+    { "source": "/2", "destination": "/404", "statusCode": 404 },
+    { "source": "/2/(.*)", "destination": "/404", "statusCode": 404 },
+    { "source": "/3", "destination": "/404", "statusCode": 404 },
+    { "source": "/3/(.*)", "destination": "/404", "statusCode": 404 }
+  ]
+}
