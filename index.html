@@ -1486,6 +1486,15 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
     <div class="page" id="page-ch8"></div>
     <div class="page" id="page-ch9"></div>
     <div class="page" id="page-ch10"></div>
+    <div class="page" id="page-goodmessage" style="padding:0;">
+      <iframe src="https://make-b-wordcard.vercel.app/" style="width:100%;height:calc(100% - 45px);border:none;" allowfullscreen></iframe>
+      <div style="background:var(--card-bg);border-top:1px solid var(--border);padding:10px 24px;text-align:center;">
+        <a href="https://make-b-wordcard.vercel.app/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:13px;font-weight:600;text-decoration:none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          굿 메시지 바로가기(오경근 제공)
+        </a>
+      </div>
+    </div>
 
   </div>
 
@@ -1498,8 +1507,8 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
 
 <script>
 // Page data
-const PAGES = ['cover','toc','guide','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10'];
-const PAGE_LABELS = ['표지','목차','AI 등록 가이드','1장','2장','3장','4장','5장','6장','7장','8장','9장','10장'];
+const PAGES = ['cover','toc','guide','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','goodmessage'];
+const PAGE_LABELS = ['표지','목차','AI 등록 가이드','1장','2장','3장','4장','5장','6장','7장','8장','9장','10장','굿 메시지'];
 let currentPage = 0;
 
 // Helper to get prompt text
@@ -2002,6 +2011,8 @@ function renderSidebar() {
       <span class="nav-num">${ch.num}</span>${ch.title}
     </div>`;
   });
+  html += `<div class="nav-divider"></div>`;
+  html += `<div class="nav-item" id="nav-goodmessage" onclick="goToPage(${3 + chapters.length})"><span class="nav-num">✉</span>굿 메시지</div>`;
   nav.innerHTML = html;
 }
 
@@ -2460,7 +2471,7 @@ function goToPage(idx) {
   // Render guide or chapter
   if (idx === 2) {
     renderGuide();
-  } else if (idx >= 3) {
+  } else if (idx >= 3 && PAGES[idx] !== 'goodmessage') {
     const ch = chapters[idx - 3];
     renderChapter(ch);
   }
