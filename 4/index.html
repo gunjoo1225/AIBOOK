@@ -1500,6 +1500,9 @@ Skip any field marked as '없음'. Do not add any other text. Do not alter the b
     <!-- AI 등록 가이드 -->
     <div class="page" id="page-guide"></div>
 
+    <!-- AI 활용 설교 준비 -->
+    <div class="page" id="page-aiinfo"></div>
+
     <!-- Chapters (dynamically rendered) -->
     <div class="page" id="page-ch1"></div>
     <div class="page" id="page-ch2"></div>
@@ -1530,8 +1533,8 @@ Skip any field marked as '없음'. Do not add any other text. Do not alter the b
 
 <script>
 // Page data
-const PAGES = ['cover','toc','guide','ch1','ch2','ch3','ch4','ch5','ch6','ch10','ch11','goodmessage'];
-const PAGE_LABELS = ['표지','목차','AI 등록 가이드','1장','2장','3장','4장','5장','6장','10장','11장','굿 메시지'];
+const PAGES = ['cover','toc','guide','aiinfo','ch1','ch2','ch3','ch4','ch5','ch6','ch10','ch11','goodmessage'];
+const PAGE_LABELS = ['표지','목차','AI 등록 가이드','AI 활용 설교 준비','1장','2장','3장','4장','5장','6장','10장','11장','굿 메시지'];
 let currentPage = 0;
 
 // Helper to get prompt text
@@ -1735,6 +1738,23 @@ const chapters = [
     nameId:'p8-name', promptId:'p8-prompt'
   }
 ];
+
+// Render AI 활용 설교 준비 page
+function renderAiInfo() {
+  const el = document.getElementById('page-aiinfo');
+  if (el.dataset.rendered) return;
+  el.dataset.rendered = '1';
+  el.innerHTML = `
+  <div class="guide-page">
+    <h2>📊 AI 활용 설교 준비</h2>
+    <p class="guide-intro">AI를 활용하여 스마트하게 설교를 준비하는 방법을 한눈에 확인하세요.</p>
+    <div class="section-card">
+      <div class="section-card-body">
+        <img src="../images/infographic_clean_AI_활용_스마트_설교_준비.png" alt="AI 활용 스마트 설교 준비 인포그래픽" style="display:block;width:100%;max-width:100%;border-radius:10px;border:1px solid var(--border);">
+      </div>
+    </div>
+  </div>`;
+}
 
 // Render guide page
 function renderGuide() {
@@ -1980,13 +2000,6 @@ function renderGuide() {
       </div>
     </div>
 
-    <div class="section-card" style="margin-top:32px;">
-      <div class="section-card-header"><span class="sec-icon">📊</span><h3>AI 활용 설교 준비</h3></div>
-      <div class="section-card-body">
-        <img src="../images/infographic_clean_AI_활용_스마트_설교_준비.png" alt="AI 활용 스마트 설교 준비 인포그래픽" style="display:block;width:100%;max-width:100%;border-radius:10px;border:1px solid var(--border);">
-      </div>
-    </div>
-
   </div>`;
 
   // Tab switching (scoped inside guide page)
@@ -2005,14 +2018,15 @@ function renderSidebar() {
   html += `<div class="nav-item special" onclick="goToPage(1)"><span class="nav-num">—</span>목차</div>`;
   html += `<div class="nav-divider"></div>`;
   html += `<div class="nav-item" id="nav-guide" onclick="goToPage(2)"><span class="nav-num">★</span>AI 등록 가이드</div>`;
+  html += `<div class="nav-item" id="nav-aiinfo" onclick="goToPage(3)"><span class="nav-num">📊</span>AI 활용 설교 준비</div>`;
   html += `<div class="nav-divider"></div>`;
   chapters.forEach((ch, i) => {
-    html += `<div class="nav-item" id="nav-${ch.id}" onclick="goToPage(${i+3})">
+    html += `<div class="nav-item" id="nav-${ch.id}" onclick="goToPage(${i+4})">
       <span class="nav-num">${ch.num}</span>${ch.title}
     </div>`;
   });
   html += `<div class="nav-divider"></div>`;
-  html += `<div class="nav-item" id="nav-goodmessage" onclick="goToPage(${3 + chapters.length})"><span class="nav-num">✉</span>굿 메시지</div>`;
+  html += `<div class="nav-item" id="nav-goodmessage" onclick="goToPage(${4 + chapters.length})"><span class="nav-num">✉</span>굿 메시지</div>`;
   nav.innerHTML = html;
 }
 
@@ -2021,7 +2035,7 @@ function renderTOC() {
   const grid = document.getElementById('toc-grid');
   let html = '';
   chapters.forEach((ch, i) => {
-    html += `<div class="toc-card" onclick="goToPage(${i+3})">
+    html += `<div class="toc-card" onclick="goToPage(${i+4})">
       <div class="ch-num">Chapter ${ch.num}</div>
       <h3>${ch.title}</h3>
       <p>${ch.sub}</p>
@@ -2359,8 +2373,10 @@ function goToPage(idx) {
   // Render guide or chapter
   if (idx === 2) {
     renderGuide();
-  } else if (idx >= 3 && PAGES[idx] !== 'goodmessage') {
-    const ch = chapters[idx - 3];
+  } else if (idx === 3) {
+    renderAiInfo();
+  } else if (idx >= 4 && PAGES[idx] !== 'goodmessage') {
+    const ch = chapters[idx - 4];
     renderChapter(ch);
   }
 
