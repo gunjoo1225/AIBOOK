@@ -6,23 +6,23 @@
 <title>AI를 통한 교회 사무자동화 교육</title>
 <style>
 :root {
-  --bg: #f0f7ff;
-  --sidebar-bg: #1e3a5f;
-  --sidebar-text: #bfdbfe;
-  --sidebar-active: #60a5fa;
-  --accent: #3b82f6;
-  --primary: #1e3a5f;
-  --text: #1e293b;
-  --subtext: #64748b;
-  --code-bg: #dbeafe;
-  --code-text: #1e3a5f;
+  --bg: #f7f4ef;
+  --sidebar-bg: #1a2840;
+  --sidebar-text: #c8d8f0;
+  --sidebar-active: #c9a540;
+  --accent: #c9a540;
+  --primary: #1a2840;
+  --text: #2a2a2a;
+  --subtext: #666;
+  --code-bg: #1e2235;
+  --code-text: #e8eaf0;
   --tag-blue: #2563eb;
   --tag-green: #16a34a;
   --tag-purple: #7c3aed;
   --tag-orange: #d97706;
-  --border: #bfdbfe;
+  --border: #e0d8cc;
   --card-bg: #fff;
-  --step-bg: #eff6ff;
+  --step-bg: #eef5ff;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
@@ -58,7 +58,7 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 .nav-btn.next { background: var(--primary); color: #fff; }
 .nav-btn:disabled { opacity: 0.3; cursor: default; }
 .nav-btn:not(:disabled):hover.prev { background: var(--border); }
-.nav-btn:not(:disabled):hover.next { background: #1d4ed8; }
+.nav-btn:not(:disabled):hover.next { background: #2a3d58; }
 #page-indicator { font-size: 13px; color: var(--subtext); }
 
 /* Logo */
@@ -66,7 +66,7 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 #cover-logo { display: block; width: 180px; margin: 0 auto 20px; filter: invert(1) brightness(0.9); opacity: 0.9; }
 
 /* Cover */
-#page-cover { background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 60%, #1e3a5f 100%); }
+#page-cover { background: linear-gradient(135deg, #1a2840 0%, #2c4a6e 60%, #1a2840 100%); }
 #page-cover.active { display: flex; align-items: center; justify-content: center; }
 .cover-inner { text-align: center; padding: 60px 40px; max-width: 600px; }
 .cover-badge { display: inline-block; background: rgba(201,165,64,0.2); border: 1px solid var(--accent); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 2px; padding: 6px 16px; border-radius: 20px; margin-bottom: 28px; }
@@ -74,8 +74,8 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 .cover-inner .subtitle { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.6; }
 .cover-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 40px; }
 .cover-chip { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); font-size: 12px; padding: 5px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
-.start-btn { background: #fff; color: var(--primary); border: none; padding: 14px 36px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-.start-btn:hover { background: #e0effe; transform: translateY(-1px); }
+.start-btn { background: var(--accent); color: #1a2840; border: none; padding: 14px 36px; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.start-btn:hover { background: #e0b84a; transform: translateY(-1px); }
 
 /* TOC */
 .toc-page { padding: 40px; max-width: 800px; margin: 0 auto; }
@@ -102,7 +102,7 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 .ch-header .ch-sub { font-size: 15px; color: var(--subtext); margin-bottom: 16px; }
 .ai-tools { display: flex; flex-wrap: wrap; gap: 8px; }
 .ai-link { display: inline-flex; align-items: center; gap: 6px; background: var(--primary); color: #fff; font-size: 12.5px; font-weight: 500; padding: 6px 14px; border-radius: 8px; text-decoration: none; transition: background 0.15s; }
-.ai-link:hover { background: #1d4ed8; }
+.ai-link:hover { background: #2c4a6e; }
 .step a, .howto-list a, .ws-content a { color: #2563eb; font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
 .step a:hover, .howto-list a:hover, .ws-content a:hover { color: #1d4ed8; }
 .ai-link-icon { font-size: 14px; }
@@ -127,21 +127,14 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 .code-wrap { position: relative; }
 .code-wrap pre { background: var(--code-bg); color: var(--code-text); font-family: 'Consolas', 'D2Coding', 'Courier New', monospace; font-size: 13px; line-height: 1.7; padding: 20px; border-radius: 10px; overflow-x: auto; max-height: 320px; overflow-y: auto; white-space: pre-wrap; word-break: break-word; }
 .code-wrap pre.short { max-height: 200px; }
-.copy-btn { position: absolute; top: 10px; right: 24px; background: var(--accent); color: #fff; border: 1px solid #2563eb; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; z-index: 2; }
-.copy-btn:hover { background: #1d4ed8; border-color: #1d4ed8; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: var(--accent); color: #1a2840; border: 1px solid #a07a20; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; z-index: 2; }
+.copy-btn:hover { background: #e0b84a; border-color: #b08a30; }
 .copy-btn.copied { background: #22c55e; border-color: #22c55e; color: #fff; }
 .option-group-label { font-size: 11.5px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 7px; }
 .opt-btns { display: flex; flex-wrap: wrap; gap: 6px; }
 .opt-btn { padding: 5px 13px; border-radius: 20px; border: 1.5px solid #ddd; background: #fff; font-size: 12.5px; cursor: pointer; color: #555; transition: all 0.15s; }
-.opt-btn:hover { border-color: #93c5fd; color: #1e3a5f; }
+.opt-btn:hover { border-color: #a0b4d6; color: #1a2840; }
 .opt-btn.active { border-color: #4f8ef7; background: #e8f0fe; color: #1a56db; font-weight: 600; }
-
-/* Inline emphasis — bold text in content areas */
-.step p b, .step p strong,
-.howto-list li b, .howto-list li strong,
-.gs-content p b, .gs-content p strong,
-.ws-content p b, .ws-content p strong,
-.sec-body p b, .sec-body p strong { color: #e53e3e; }
 
 /* Info note */
 .info-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 12px 16px; font-size: 13px; color: #92400e; display: flex; gap: 8px; align-items: flex-start; }
@@ -150,7 +143,7 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 /* Workflow steps with images */
 .workflow-step { display: flex; gap: 16px; margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
 .workflow-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.workflow-step .ws-num { width: 32px; height: 32px; min-width: 32px; background: var(--accent); color: #fff; border-radius: 8px; font-size: 14px; font-weight: 700; display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; }
+.workflow-step .ws-num { width: 32px; height: 32px; min-width: 32px; background: var(--accent); color: #1a2840; border-radius: 8px; font-size: 14px; font-weight: 700; display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; }
 .workflow-step .ws-content { flex: 1; }
 .workflow-step .ws-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
 .workflow-step .ws-content p { font-size: 13.5px; color: var(--subtext); line-height: 1.6; margin-bottom: 0; }
@@ -164,11 +157,11 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 .howto-list li::before { content: '▸'; position: absolute; left: 0; color: #3b82f6; }
 
 /* Download box */
-.download-box { background: linear-gradient(135deg, #1e3a5f, #2563eb); border-radius: 12px; padding: 28px; text-align: center; color: #fff; }
+.download-box { background: linear-gradient(135deg, #1a2840, #2c4a6e); border-radius: 12px; padding: 28px; text-align: center; color: #fff; }
 .download-box .dl-icon { font-size: 40px; margin-bottom: 12px; }
 .download-box h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
 .download-box p { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
-.dl-btn { display: inline-block; background: #fff; color: var(--primary); font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 8px; text-decoration: none; cursor: pointer; border: none; }
+.dl-btn { display: inline-block; background: var(--accent); color: #1a2840; font-size: 14px; font-weight: 700; padding: 12px 28px; border-radius: 8px; text-decoration: none; cursor: pointer; border: none; }
 
 /* Guide page */
 .guide-page { padding: 36px 40px; max-width: 900px; margin: 0 auto; }
@@ -452,11 +445,6 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 
 # 추가 대화 대응
 
-## 0 입력 시 초기화
-대화 중 어느 시점이든 사용자가 **0**을 단독으로 입력하면,
-진행 중인 내용을 중단하고 처음 안내문 전체를 다시 출력합니다.
-새 본문 입력 전까지 설교 브리핑을 생성하지 않습니다.
-
 ## 특정 섹션 심화 요청
 목사님께서 특정 섹션을 더 깊이 요청하시면 해당 부분만 확장하여 응답합니다.
 
@@ -475,7 +463,7 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 
   "description": "교회 밖 긴급 상황(장례·심방·사고·위기)에서 목회자가 현장으로 이동하는 동안 사용할 수 있는 즉응형 목회 도우미. 1인 개척교회 목회자가 차 안·병원 복도·장례식장 등에서 휴대폰으로 사용한다. 상황별 적절한 성경 본문을 추천하고, 선택한 본문에 대한 즉시 사용 가능한 메시지 패키지를 제공한다.",
 
-  "instruction": "너는 1인 개척교회 목회자가 교회 밖 긴급 상황에서 현장으로 이동하는 짧은 시간 안에 사용하는 '긴급 현장 목회 도우미'이다. 사용자(목회자)는 차 안에서, 부고를 받은 직후, 병원으로 가는 길에 휴대폰으로 너를 사용한다. 너의 역할은 신학 강의가 아니라 '도착 즉시 위로의 말씀을 전할 수 있도록 돕는 것'이다.\n\n반드시 아래의 6단계 대화 흐름을 따르라. 한 번에 모든 정보를 쏟아내지 말고, 단계별로 진행한다.\n\n사용자는 메뉴 번호(예: 1)를 입력할 수도 있고, 키워드(예: 장례, 병원)를 입력할 수도 있고, 처음부터 자유 서술로 상황을 설명할 수도 있다. 자유 서술로 충분한 정보가 들어온 경우 메뉴 단계를 건너뛰고 곧바로 STEP 4로 진행한다.\n\n네비게이션 명령어:\n- 사용자가 0을 단독으로 입력하면: 진행 중인 내용을 중단하고 STEP_1 전체를 다시 출력한다. 새로운 입력을 받기 전까지 다음 단계로 진행하지 않는다.\n- 사용자가 9를 단독으로 입력하면: 현재 단계에서 바로 직전 단계로 돌아가 해당 단계의 내용을 다시 출력한다. STEP_1에서 9를 입력하면 '이미 처음 단계입니다'라고 안내한다.",
+  "instruction": "너는 1인 개척교회 목회자가 교회 밖 긴급 상황에서 현장으로 이동하는 짧은 시간 안에 사용하는 '긴급 현장 목회 도우미'이다. 사용자(목회자)는 차 안에서, 부고를 받은 직후, 병원으로 가는 길에 휴대폰으로 너를 사용한다. 너의 역할은 신학 강의가 아니라 '도착 즉시 위로의 말씀을 전할 수 있도록 돕는 것'이다.\n\n반드시 아래의 6단계 대화 흐름을 따르라. 한 번에 모든 정보를 쏟아내지 말고, 단계별로 진행한다.\n\n사용자는 메뉴 번호(예: 1)를 입력할 수도 있고, 키워드(예: 장례, 병원)를 입력할 수도 있고, 처음부터 자유 서술로 상황을 설명할 수도 있다. 자유 서술로 충분한 정보가 들어온 경우 메뉴 단계를 건너뛰고 곧바로 STEP 4로 진행한다.",
 
   "conversation_flow": {
 
@@ -485,13 +473,13 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 
     "STEP_2_병상": "1. 병원 심방 (입원 중)\n2. 중환자실·임종 직전\n3. 수술 전 기도\n4. 큰 병 진단 받은 직후 위로\n5. 정신질환·우울 위기\n6. 만성 투병·간병 가정",
 
-    "STEP_3": "✏️ [선택한 상황]이군요. 다음을 알려주세요.\n모르시는 건 '모름'이라 적으셔도 됩니다.\n\n① 당사자 연령 / 사인·원인·상황\n② 유족·가족 구성과 신앙 상태\n③ 특별히 신경 쓸 점 (선택)\n\n자유롭게 적어주세요.\n(이전 단계로 돌아가려면 '9' / 처음으로 돌아가려면 '0')",
+    "STEP_3": "✏️ [선택한 상황]이군요. 다음을 알려주세요.\n모르시는 건 '모름'이라 적으셔도 됩니다.\n\n① 당사자 연령 / 사인·원인·상황\n② 유족·가족 구성과 신앙 상태\n③ 특별히 신경 쓸 점 (선택)\n\n자유롭게 적어주세요.\n(이전 단계로 돌아가려면 '0' 또는 '이전')",
 
-   "STEP_4_본문추천": "상황 분석 후 적합한 성경 본문 5개를 추천합니다.\n각 본문마다:\n(a) 본문 제목 + 한 줄 부제\n(b) 적합 이유\n(c) 대한성서공회 URL\n\nURL 형식:\nhttps://bible.bskorea.or.kr/bible/NKRV/{USFM코드}.{장}.{절범위}\n\n본문 추천 후 반드시 아래 문구를 출력한다:\n\n👉 사용하실 본문 번호를 선택해주세요.\n(예: 1번 / 시편23편)\n(이전 단계로 돌아가려면 '9' / 처음으로 돌아가려면 '0')\n\n사용자가 번호 또는 본문명을 선택하기 전까지 STEP_5로 진행하지 않는다.",
+   "STEP_4_본문추천": "상황 분석 후 적합한 성경 본문 5개를 추천합니다.\n각 본문마다:\n(a) 본문 제목 + 한 줄 부제\n(b) 적합 이유\n(c) 대한성서공회 URL\n\nURL 형식:\nhttps://bible.bskorea.or.kr/bible/NKRV/{USFM코드}.{장}.{절범위}\n\n본문 추천 후 반드시 아래 문구를 출력한다:\n\n👉 사용하실 본문 번호를 선택해주세요.\n(예: 1번 / 시편23편)\n\n사용자가 번호 또는 본문명을 선택하기 전까지 STEP_5로 진행하지 않는다.",
 
-"STEP_5_분량선택": "선택한 본문이 확인되면 아래를 출력한다.\n\n📖 선택하신 본문으로 메시지를 준비하겠습니다.\n원하시는 분량을 선택해주세요.\n\n1. 기도만 (1분 내외)\n2. 3분\n3. 5분\n4. 10분\n\n(이전 단계로 돌아가려면 '9' / 처음으로 돌아가려면 '0')",
+"STEP_5_분량선택": "선택한 본문이 확인되면 아래를 출력한다.\n\n📖 선택하신 본문으로 메시지를 준비하겠습니다.\n원하시는 분량을 선택해주세요.\n\n1. 기도만 (1분 내외)\n2. 3분\n3. 5분\n4. 10분",
 
-"STEP_6_패키지": "사용자가 선택한 본문 + 분량에 맞춰 즉시 사용 가능한 메시지 패키지를 제공한다.\n\n반드시 아래 순서로 구성한다.\n\n📖 개역개정 본문 바로가기 URL\n📌 함께 읽을 구절\n💡 본문 핵심 (목사님 머릿속 정리용)\n💬 메시지 흐름 (시간 배분 포함)\n🙏 기도문 초안\n📞 이후 챙길 것\n\n(처음으로 돌아가려면 '0')"
+"STEP_6_패키지": "사용자가 선택한 본문 + 분량에 맞춰 즉시 사용 가능한 메시지 패키지를 제공한다.\n\n반드시 아래 순서로 구성한다.\n\n📖 개역개정 본문 바로가기 URL\n📌 함께 읽을 구절\n💡 본문 핵심 (목사님 머릿속 정리용)\n💬 메시지 흐름 (시간 배분 포함)\n🙏 기도문 초안\n📞 이후 챙길 것"
 
   },
 
@@ -546,11 +534,6 @@ body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans
 나눔질문: [포함 또는 미포함]  ← 생략 시 기본값은 포함
 설교원고:
 [완성된 설교 원고 전체]
-
-네비게이션 명령어
-대화 중 어느 시점이든 사용자가 0을 단독으로 입력하면,
-진행 중인 내용을 중단하고 처음 안내문 전체를 다시 출력한다.
-새 설교 원고 입력 전까지 요약을 생성하지 않는다.
 
 작업 절차 (반드시 이 순서대로 수행)
 STEP 1. 원고 정독 후 구조 번호 부여
@@ -681,11 +664,6 @@ STEP 3. 핵심 메시지 중심으로 요약 작성
 "직접 입력" 번호를 선택한 경우에만 자유 서술 요청
 여러 STEP의 답을 한 번에 입력한 경우(예: STEP 3에서 "2, 3, 1") 순서대로 매칭하여 처리하고, 부족하거나 모호한 항목만 다시 묻는다
 
-## 네비게이션 명령어
-
-- 사용자가 0을 단독으로 입력하면: 진행 중인 내용을 중단하고 STEP 0(처음 안내문 전체)을 다시 출력한다. 새로운 선택을 받기 전까지 다음 단계로 진행하지 않는다.
-- 사용자가 9를 단독으로 입력하면: 현재 단계에서 바로 직전 단계로 돌아가 해당 단계의 내용을 다시 출력한다. STEP 0에서 9를 입력하면 "이미 처음 단계입니다"라고 안내한다.
-
 ## STEP 진행 원칙 (추가)
 
 최초 실행 시 위 안내문(STEP 0 포함)을 출력하고 사용자의 선택을 기다린다.
@@ -778,7 +756,7 @@ STEP 6에서는 반드시 실제 파일 생성 도구를 호출한다.
 포함 항목: 헤더(교회명 / 프로그램명 / N주차 / 날짜 ____월 ____일) / 오늘의 주제(큰 글씨) / 본문(장·절만, 본문 인용 금지) / 강의 핵심 포인트(제목만 + 빈칸 필기 공간) / 본문 묵상 공간(밑줄 5~7줄) / 나눔 질문(각 질문 아래 답변 기록 공간 3~4줄) / 한 주간 묵상 과제 / 자유 메모 공간(밑줄 10줄)
 
 ## STEP 0 — 시작 화면
-(최초 실행 시 위 안내문에 이미 포함되어 출력됨. 사용자가 0을 입력하거나 다시 처음으로 돌아오길 원할 때 재출력한다.)
+(최초 실행 시 위 안내문에 이미 포함되어 출력됨. 사용자가 다시 처음으로 돌아오길 원할 때 재출력한다.)
 
 ## STEP 1 — 세부 주제 선택
 사용자가 STEP 0에서 선택한 카테고리에 따라 번호별로 줄바꿈한 세부 주제 목록을 제시한다.
@@ -849,6 +827,8 @@ STEP 0에서 6번(잘 모르겠어요)
 2. 단기 (4주)
 3. 중기 (8주)
 4. 분기 (12주)
+5. 학기 (16주)
+6. 직접 입력 (예: 6주, 10주)
 
 ## STEP 3 — 우리 교회 상황
 세 가지만 알려주세요. 모두 번호로 한 번에 답하셔도 됩니다. (예: 2, 3, 1)
@@ -1040,11 +1020,6 @@ STEP 1 — 행사 정보 입력
 너는 한국 교회 행사 포스터 제작 전문 도우미다.
 사용자가 입력한 행사 정보를 바탕으로 ChatGPT Images 2.0을 두 번 호출하여 완성형 포스터를 만드는 것이 역할이다.
 
-■ 네비게이션 명령어
-
-- 사용자가 0을 단독으로 입력하면: 진행 중인 내용을 중단하고 처음 안내문과 STEP 1을 다시 출력한다. 새로운 입력을 받기 전까지 다음 단계로 진행하지 않는다.
-- 사용자가 9를 단독으로 입력하면: 현재 단계에서 바로 직전 단계로 돌아가 해당 단계의 내용을 다시 출력한다. STEP 1에서 9를 입력하면 "이미 처음 단계입니다"라고 안내한다.
-
 ■ 전체 제작 흐름 (2단계 자동 실행)
 
 [1단계] 배경 이미지 생성
@@ -1109,9 +1084,7 @@ STEP 2 — 포스터 분위기 선택
 6. 차분하고 묵직한   — 사경회·기도회·말씀집회·새벽기도 특별주간 등
 7. 화려하고 축제적인 — 창립기념주일·성탄절·교회 문화행사 등
 8. 자연스럽고 소박한 — 소그룹 모임·구역행사·작은 교회 분위기 등
-직접 설명            — 원하시는 분위기를 자유롭게 적어주세요
-
-(이전 단계로 돌아가려면 '9' 입력 / 처음으로 돌아가려면 '0' 입력)
+9. 직접 설명         — 원하시는 분위기를 자유롭게 적어주세요
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ■ STEP 3 출력 형식 (STEP 2 입력 완료 시 그대로 출력)
@@ -1128,8 +1101,6 @@ STEP 3 — 주요 색상 방향 선택
 5. 비비드 컬러      — 청년·역동적 느낌
 6. 모노크롬         — 흑백·단색 느낌
 7. 자동 선택        — 분위기에 맞게 자동으로 정해주세요
-
-(이전 단계로 돌아가려면 '9' 입력 / 처음으로 돌아가려면 '0' 입력)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ■ STEP 4 출력 형식 (STEP 3 입력 완료 시 그대로 출력)
@@ -1141,8 +1112,6 @@ STEP 4 — 제작 사이즈 선택
 1. 세로형 — 인쇄·출력용 (A4 세로 / 주보·게시판·현수막 등)
 2. 가로형 — PPT·화면 출력용 (16:9 / 예배 화면·카카오톡 공유 등)
 3. 정방형 — SNS용 (1:1 / 인스타그램·카카오스토리 등)
-
-(이전 단계로 돌아가려면 '9' 입력 / 처음으로 돌아가려면 '0' 입력)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ■ STEP 5 출력 형식 (STEP 4 입력 완료 시 아래 형식으로 요약 출력)
@@ -1164,8 +1133,6 @@ STEP 5 — 최종 확인
 
 수정하실 부분이 있으면 말씀해 주세요.
 "생성"이라고 입력하시면 포스터를 바로 만들어드립니다.
-
-(이전 단계로 돌아가려면 '9' 입력 / 처음으로 돌아가려면 '0' 입력)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ■ "생성" 입력 시 자동 실행 순서
@@ -1246,7 +1213,6 @@ Skip any field marked as '없음'. Do not add any other text. Do not alter the b
 ▶ 분위기나 색상을 바꿔 다시 생성하려면 "다시"라고 입력해 주세요.
 ▶ 다른 사이즈 버전을 원하시면 "세로형 / 가로형 / 정방형"으로 입력해 주세요.
 ▶ 텍스트 내용을 수정하려면 수정할 항목과 내용을 말씀해 주세요.
-▶ 새 포스터를 처음부터 만들려면 '0'을 입력해 주세요.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ■ 절대 금지
@@ -1502,9 +1468,6 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
     <!-- AI 등록 가이드 -->
     <div class="page" id="page-guide"></div>
 
-    <!-- AI 활용 설교 준비 -->
-    <div class="page" id="page-aiinfo"></div>
-
     <!-- Chapters (dynamically rendered) -->
     <div class="page" id="page-ch1"></div>
     <div class="page" id="page-ch2"></div>
@@ -1515,16 +1478,7 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
     <div class="page" id="page-ch7"></div>
     <div class="page" id="page-ch8"></div>
     <div class="page" id="page-ch9"></div>
-    <div class="page" id="page-ch11"></div>
-    <div class="page" id="page-goodmessage" style="padding:0;">
-      <iframe src="https://make-b-wordcard.vercel.app/" style="width:100%;height:calc(100% - 45px);border:none;" allowfullscreen></iframe>
-      <div style="background:var(--card-bg);border-top:1px solid var(--border);padding:10px 24px;text-align:center;">
-        <a href="https://make-b-wordcard.vercel.app/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:13px;font-weight:600;text-decoration:none;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          굿 메시지 바로가기(오경근 제공)
-        </a>
-      </div>
-    </div>
+    <div class="page" id="page-ch10"></div>
 
   </div>
 
@@ -1537,8 +1491,8 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
 
 <script>
 // Page data
-const PAGES = ['cover','toc','guide','aiinfo','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch11','goodmessage'];
-const PAGE_LABELS = ['표지','목차','AI 등록 가이드','AI 활용 설교 준비','1장','2장','3장','4장','5장','6장','7장','8장','9장','10장','굿 메시지'];
+const PAGES = ['cover','toc','guide','ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10'];
+const PAGE_LABELS = ['표지','목차','AI 등록 가이드','1장','2장','3장','4장','5장','6장','7장','8장','9장','10장'];
 let currentPage = 0;
 
 // Helper to get prompt text
@@ -1583,30 +1537,6 @@ const chapters = [
   },
   {
     id:'ch2', num:2,
-    title:'노트북LM 인포그래픽',
-    sub:'NotebookLM 활용 인포그래픽 자료',
-    aiTag:'NotebookLM',
-    aiTagClass:'notebooklm',
-    aiTools:[{name:'NotebookLM', url:'https://notebooklm.google.com/'}],
-    hasGems: false,
-    isInfographic: true
-  },
-  {
-    id:'ch3', num:3,
-    title:'노트북LM 슬라이드 편집방법',
-    pageTitle:'노트북LM 슬라이드 이미지 편집방법',
-    sub:'NotebookLM PDF → Canva → PPTX 변환 워크플로우',
-    aiTag:'NotebookLM + Canva',
-    aiTagClass:'notebooklm',
-    aiTools:[
-      {name:'NotebookLM', url:'https://notebooklm.google.com/'},
-      {name:'Canva', url:'https://www.canva.com/'}
-    ],
-    hasGems: false,
-    isSlideEdit: true
-  },
-  {
-    id:'ch4', num:4,
     title:'설교 준비 자료',
     sub:'본문 한 줄 입력으로 주석·원어·배경·설교 각도까지',
     aiTag:'ChatGPT',
@@ -1628,7 +1558,7 @@ const chapters = [
     nameId:'p2-name', promptId:'p2-prompt'
   },
   {
-    id:'ch5', num:5,
+    id:'ch3', num:3,
     title:'긴급 심방 자료',
     sub:'갑작스런 장례·병원 상황에서 차 안에서 바로 사용',
     aiTag:'ChatGPT',
@@ -1652,7 +1582,7 @@ const chapters = [
     note:'이 GPT 프로젝트는 주로 휴대폰으로 사용합니다. 이동 중에도 빠르게 접근할 수 있도록 즐겨찾기에 추가하세요.'
   },
   {
-    id:'ch6', num:6,
+    id:'ch4', num:4,
     title:'설교 요약 및 나눔질문',
     sub:'주보 작성 시 설교 내용을 자동으로 요약',
     aiTag:'ChatGPT',
@@ -1674,7 +1604,7 @@ const chapters = [
     nameId:'p4-name', promptId:'p4-prompt'
   },
   {
-    id:'ch7', num:7,
+    id:'ch5', num:5,
     title:'교회 프로그램 기획',
     sub:'1회성 특강부터 한 학기 과정까지 함께 기획',
     aiTag:'ChatGPT',
@@ -1697,7 +1627,7 @@ const chapters = [
     nameId:'p5-name', promptId:'p5-prompt'
   },
   {
-    id:'ch8', num:8,
+    id:'ch6', num:6,
     title:'교회 포스터 제작',
     sub:'ChatGPT로 행사 포스터 자동 제작',
     aiTag:'ChatGPT',
@@ -1729,7 +1659,7 @@ const chapters = [
     nameId:'p6-name', promptId:'p6-prompt'
   },
   {
-    id:'ch9', num:9,
+    id:'ch7', num:7,
     title:'교회 절기 이미지 생성',
     sub:'절기에 사용할 PPT 배경 이미지 생성 프롬프트',
     aiTag:'ChatGPT + Flow',
@@ -1758,7 +1688,17 @@ const chapters = [
     nameId:'p7-name', promptId:'p7-prompt'
   },
   {
-    id:'ch11', num:10,
+    id:'ch8', num:8,
+    title:'단체 문자 발송',
+    sub:'주중 교회 공지를 카카오톡으로 단체 발송',
+    aiTag:'Excel 매크로',
+    aiTagClass:'excel',
+    aiTools:[],
+    hasGems: false,
+    isDownload: true
+  },
+  {
+    id:'ch9', num:9,
     title:'나사렛 공과 유튜브 채널',
     sub:'평신도 사역자 클래스 & 어린이 성결동화 채널',
     aiTag:'YouTube',
@@ -1769,29 +1709,22 @@ const chapters = [
     ],
     hasGems: false,
     isYoutube: true
+  },
+  {
+    id:'ch10', num:10,
+    title:'노트북LM 슬라이드 편집방법',
+    pageTitle:'노트북LM 슬라이드 이미지 편집방법',
+    sub:'NotebookLM PDF → Canva → PPTX 변환 워크플로우',
+    aiTag:'NotebookLM + Canva',
+    aiTagClass:'notebooklm',
+    aiTools:[
+      {name:'NotebookLM', url:'https://notebooklm.google.com/'},
+      {name:'Canva', url:'https://www.canva.com/'}
+    ],
+    hasGems: false,
+    isSlideEdit: true
   }
 ];
-
-// Render AI 활용 설교 준비 page
-function renderAiInfo() {
-  const el = document.getElementById('page-aiinfo');
-  if (el.dataset.rendered) return;
-  el.dataset.rendered = '1';
-  el.innerHTML = `
-  <div class="guide-page">
-    <h2>📊 AI 활용 설교 준비</h2>
-    <p class="guide-intro">AI를 활용하여 스마트하게 설교를 준비하는 방법을 한눈에 확인하세요.</p>
-    <div class="ai-tools" style="margin-bottom:20px;">
-      <a href="https://notebooklm.google.com/" target="_blank" class="ai-link"><span class="ai-link-icon">🔗</span>NotebookLM</a>
-      <a href="https://chatgpt.com/" target="_blank" class="ai-link"><span class="ai-link-icon">🔗</span>ChatGPT</a>
-    </div>
-    <div class="section-card">
-      <div class="section-card-body">
-        <img src="images/infographic_clean_AI_활용_스마트_설교_준비.png" alt="AI 활용 스마트 설교 준비 인포그래픽" style="display:block;width:100%;max-width:100%;border-radius:10px;border:1px solid var(--border);">
-      </div>
-    </div>
-  </div>`;
-}
 
 // Render guide page
 function renderGuide() {
@@ -2037,6 +1970,7 @@ function renderGuide() {
       </div>
     </div>
 
+
   </div>`;
 
   // Tab switching (scoped inside guide page)
@@ -2055,19 +1989,12 @@ function renderSidebar() {
   html += `<div class="nav-item special" onclick="goToPage(1)"><span class="nav-num">—</span>목차</div>`;
   html += `<div class="nav-divider"></div>`;
   html += `<div class="nav-item" id="nav-guide" onclick="goToPage(2)"><span class="nav-num">★</span>AI 등록 가이드</div>`;
-  html += `<div class="nav-item" id="nav-aiinfo" onclick="goToPage(3)"><span class="nav-num">📊</span>AI 활용 설교 준비</div>`;
   html += `<div class="nav-divider"></div>`;
-  html += `<div style="padding:6px 20px 2px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.2px;text-transform:uppercase;">📗 NotebookLM</div>`;
   chapters.forEach((ch, i) => {
-    if (ch.num === 4) {
-      html += `<div style="padding:10px 20px 2px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.2px;text-transform:uppercase;">🤖 ChatGPT</div>`;
-    }
-    html += `<div class="nav-item" id="nav-${ch.id}" onclick="goToPage(${i+4})">
+    html += `<div class="nav-item" id="nav-${ch.id}" onclick="goToPage(${i+3})">
       <span class="nav-num">${ch.num}</span>${ch.title}
     </div>`;
   });
-  html += `<div class="nav-divider"></div>`;
-  html += `<div class="nav-item" id="nav-goodmessage" onclick="goToPage(${4 + chapters.length})"><span class="nav-num">✉</span>굿 메시지</div>`;
   nav.innerHTML = html;
 }
 
@@ -2076,7 +2003,7 @@ function renderTOC() {
   const grid = document.getElementById('toc-grid');
   let html = '';
   chapters.forEach((ch, i) => {
-    html += `<div class="toc-card" onclick="goToPage(${i+4})">
+    html += `<div class="toc-card" onclick="goToPage(${i+3})">
       <div class="ch-num">Chapter ${ch.num}</div>
       <h3>${ch.title}</h3>
       <p>${ch.sub}</p>
@@ -2111,15 +2038,15 @@ function renderChapter(ch) {
   if (ch.isWorkflow) {
     html += renderWorkflow();
   }
+  // Special: download (ch8)
+  else if (ch.isDownload) {
+    html += renderDownload();
+  }
   // Special: youtube (ch9)
   else if (ch.isYoutube) {
     html += renderYoutube();
   }
-  // Special: infographic (ch2)
-  else if (ch.isInfographic) {
-    html += renderInfographic();
-  }
-  // Special: slide edit (ch3)
+  // Special: slide edit (ch10)
   else if (ch.isSlideEdit) {
     html += renderSlideEdit();
   }
@@ -2270,38 +2197,22 @@ function renderChapter(ch) {
       html += "<div class='section-card'><div class='section-card-header'><span class='sec-icon'>🖼️</span><h3>결과 예시</h3></div><div class='section-card-body' style='text-align:center'><img src='" + ch1img.src + "' alt='설교 시각자료 결과 예시' style='max-width:100%;border-radius:8px;border:1px solid var(--border)'></div></div>";
     }
     html += `<div style="margin-top:20px;text-align:center;">
-      <button id="ch1-copy-all-btn" onclick="ch1CopyAll(this)" style="padding:14px 36px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(59,130,246,0.25);transition:all 0.15s;">📋 프롬프트 전체 복사 (모든 옵션)</button>
+      <button id="ch1-copy-all-btn" onclick="ch1CopyAll(this)" style="padding:14px 36px;background:var(--accent);color:#1a2840;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 2px 10px rgba(201,165,64,0.25);transition:all 0.15s;">📋 프롬프트 전체 복사 (모든 옵션)</button>
     </div>`;
   }
 
 
-  // ch4 Nazarene AI 배경분석 시스템 바로가기
-  if (ch.id === 'ch4') {
+  // ch2 Nazarene AI 배경분석 시스템 바로가기
+  if (ch.id === 'ch2') {
     html += `<div style="margin-top:28px;padding:24px;background:linear-gradient(135deg,#134e4a,#0d9488);border-radius:14px;text-align:center;">
       <div style="color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">AI 도구 바로가기</div>
       <div style="color:#fff;font-size:17px;font-weight:700;margin-bottom:18px;">Nazarene AI 설교 준비를 위한 배경분석 시스템</div>
       <a href="https://gemini.google.com/gem/b73473cf2f00?usp=sharing" target="_blank"
-        style="display:inline-block;background:var(--accent);color:#fff;font-size:14px;font-weight:700;padding:12px 32px;border-radius:10px;text-decoration:none;box-shadow:0 2px 10px rgba(59,130,246,0.3);transition:all 0.2s;"
-        onmouseover="this.style.background='#1d4ed8';this.style.transform='translateY(-1px)'"
+        style="display:inline-block;background:var(--accent);color:#1a2840;font-size:14px;font-weight:700;padding:12px 32px;border-radius:10px;text-decoration:none;box-shadow:0 2px 10px rgba(201,165,64,0.3);transition:all 0.2s;"
+        onmouseover="this.style.background='#e0b84a';this.style.transform='translateY(-1px)'"
         onmouseout="this.style.background='var(--accent)';this.style.transform='translateY(0)'">
         🔗 바로가기
       </a>
-    </div>
-    <div style="margin-top:16px;padding:24px;background:linear-gradient(135deg,#312e81,#6d28d9);border-radius:14px;text-align:center;">
-      <div style="color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">설교 도구 바로가기</div>
-      <div style="color:#fff;font-size:17px;font-weight:700;margin-bottom:18px;">설교준비 도우미(오경근) · Gemini TTS</div>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a href="https://sermon-research-institute.vercel.app/" target="_blank"
-          style="display:inline-block;background:#fff;color:#6d28d9;font-size:14px;font-weight:700;padding:12px 28px;border-radius:10px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,0.2);transition:all 0.2s;"
-          onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
-          🔗 설교준비 도우미
-        </a>
-        <a href="https://aistudio.google.com/generate-speech?model=gemini-2.5-pro-preview-tts" target="_blank"
-          style="display:inline-block;background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.5);font-size:14px;font-weight:700;padding:12px 28px;border-radius:10px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,0.2);transition:all 0.2s;"
-          onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'">
-          🔑 API 받기
-        </a>
-      </div>
     </div>`;
   }
 
@@ -2321,6 +2232,33 @@ function renderWorkflow() {
     </ul>
   </div>`;
 }
+function renderDownload() {
+  return `
+  <div class="section-card">
+    <div class="section-card-header"><span class="sec-icon">📱</span><h3>카카오톡 단체 문자 발송</h3></div>
+    <div class="section-card-body">
+      <p style="margin-bottom:16px;font-size:14px;color:#555;line-height:1.7">
+        카카오톡 PC 버전을 통해 교회 성도들에게 단체 문자(공지)를 자동으로 발송하는 엑셀 매크로 파일입니다.<br>
+        주중 예배 공지, 행사 안내, 기도 제목 등을 한 번에 발송할 수 있습니다.
+      </p>
+      <div class="download-box">
+        <div class="dl-icon">📊</div>
+        <h3>카카오톡 문자보내기 Ver2.0</h3>
+        <p>엑셀 매크로 파일 (.xlsm)<br>문자만 발송 버전</p>
+        <a class="dl-btn" href="https://raw.githubusercontent.com/gunjoo1225/AIBOOK/master/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1_%EB%AC%B8%EC%9E%90%EB%B3%B4%EB%82%B4%EA%B8%B0_Ver2.0(%EC%9B%90%EB%B3%B8)_%EB%AC%B8%EC%9E%90%EB%A7%8C_%EB%B0%9C%EC%86%A1.xlsm" download="카카오톡_문자보내기_Ver2.0_문자만_발송.xlsm" style="display:inline-block;text-decoration:none">⬇️ 파일 다운로드</a>
+      </div>
+      <div class="howto-box" style="margin-top:16px">
+        <h4>⚠️ 사용 전 주의사항</h4>
+        <ul class="howto-list">
+          <li>카카오톡 PC 버전이 설치되어 있어야 합니다</li>
+          <li>엑셀에서 매크로 실행을 허용해야 합니다</li>
+          <li>발송 전 소량으로 테스트해보세요</li>
+        </ul>
+      </div>
+    </div>
+  </div>`;
+}
+
 function renderYoutube() {
   return `
   <!-- 평신도 사역자 클래스 -->
@@ -2398,146 +2336,6 @@ function renderYoutube() {
       </a>
     </div>
   </div>`;
-}
-
-function renderInfographic() {
-  const items = [
-    {
-      label: '경건한 예배를 위한 준비 가이드',
-      file:  '경건한_예배를_위한_준비_가이드.png',
-      preId: 'pre-infographic-1',
-      text:
-`예배 시작 전 준비
-
-• 휴대폰은 잠시 꺼주세요
-• 조용히 기도로 준비해주세요
-• 마음을 하나님께 집중해주세요
-• 예배의 자리를 경건하게 지켜주세요`
-    },
-    {
-      label: '교회 새가족 정착 가이드',
-      file:  '교회_새가족_정착_가이드.png',
-      preId: 'pre-infographic-2',
-      text:
-`제목: 은혜빛교회 새가족 안내
-
-환영합니다
-은혜빛교회에 처음 오신 여러분을 진심으로 환영합니다.
-
-우리 교회 소개
-은혜빛교회는 예배, 말씀, 기도, 사랑의 교제를 중요하게 여기는 교회입니다.
-
-예배 안내
-주일예배는 매주 주일 오전 11시에 드립니다.
-수요예배와 새벽기도회도 함께 참여할 수 있습니다.
-
-새가족 등록
-처음 오신 분은 새가족 등록카드를 작성하시면 담당자가 친절하게 안내해 드립니다.
-
-새가족 교육
-새가족 교육은 교회 소개, 복음의 기초, 예배 생활, 교회 생활 안내로 진행됩니다.
-
-공동체 연결
-교육을 마친 후에는 교구, 구역, 소그룹에 연결되어 함께 신앙생활을 시작합니다.
-
-봉사와 참여
-예배 안내, 찬양, 교육, 식당 봉사, 선교 후원 등 다양한 사역에 참여할 수 있습니다.
-
-정착과 동행
-은혜빛교회는 새가족이 혼자가 아니라 믿음의 가족으로 함께 걸어가도록 돕습니다.
-
-은혜빛교회는 처음 오신 여러분이 하나님 안에서 따뜻한 믿음의 가족을 만나도록 돕겠습니다.`
-    },
-    {
-      label: '은혜로운 성경공부 5가지 약속',
-      file:  '은혜로운_성경공부_5가지_약속.png',
-      preId: 'pre-infographic-3',
-      text:
-`성경공부 참석자 지침
-말씀 앞에 함께 서는 시간입니다
-
-① 시간을 지켜 참석합니다
-성경공부 시작 5분 전까지 자리에 앉아 마음을 준비합니다.
-
-② 성경책과 필기도구를 준비합니다
-말씀을 듣고 깨달은 내용을 기록하며 배움에 참여합니다.
-
-③ 기도하는 마음으로 듣습니다
-성경공부는 지식만 배우는 시간이 아니라 하나님의 뜻을 알아가는 시간입니다.
-
-④ 서로의 이야기를 존중합니다
-다른 사람의 질문과 나눔을 판단하지 않고 따뜻하게 듣습니다.
-
-⑤ 말씀을 삶에 적용합니다
-오늘 배운 말씀을 이번 한 주간 어떻게 실천할지 생각합니다.
-
-⑥ 궁금한 것은 편하게 질문합니다
-모르는 것은 부끄러운 일이 아닙니다. 함께 배우는 것이 성경공부의 기쁨입니다.
-
-⑦ 마지막까지 함께합니다
-마침 기도와 광고까지 함께하며 은혜롭게 마무리합니다.
-
-우리의 약속
-말씀을 배우고, 서로를 세우며, 삶으로 순종하는 성경공부가 되게 합니다.`
-    },
-    {
-      label: '바울의 전도여행 단계별 비교',
-      file:  '바울의_전도여행_단계별_비교.png',
-      preId: 'pre-infographic-4',
-      text:
-`바울의 1·2·3차 전도여행
-
-바울은 여러 차례 전도여행을 하며 복음을 전하고 교회를 세우고 믿음을 굳게 했습니다.
-
-[1차 전도여행]
-주요 목적: 복음을 처음 전하고 교회를 세움
-함께한 사람: 바나바
-주요 지역: 구브로, 비시디아 안디옥, 이고니온, 루스드라, 더베
-핵심 내용:
-- 이방 지역에 복음을 전함
-- 많은 사람에게 예수님을 전함
-- 여러 곳에 교회를 세움
-한 줄 요약: 복음을 전하고 교회를 세운 여행
-
-[2차 전도여행]
-주요 목적: 세운 교회를 돌아보고 복음을 더 넓게 전함
-함께한 사람: 실라, 디모데
-주요 지역: 빌립보, 데살로니가, 베뢰아, 아덴, 고린도
-핵심 내용:
-- 유럽 지역으로 복음이 확장됨
-- 마게도냐의 부르심을 받고 건너감
-- 여러 도시에서 복음을 전함
-한 줄 요약: 복음이 유럽으로 확장된 여행
-
-[3차 전도여행]
-주요 목적: 교회를 굳게 하고 제자들을 양육함
-함께한 사람: 디모데 등 동역자들
-주요 지역: 에베소, 마게도냐, 고린도
-핵심 내용:
-- 이미 세워진 교회를 다시 방문함
-- 성도들의 믿음을 강하게 세움
-- 오랫동안 말씀을 가르침
-한 줄 요약: 교회를 든든히 세우고 양육한 여행`
-    }
-  ];
-
-  let html = '<div class="section-card"><div class="section-card-header"><span class="sec-icon">📊</span><h3>노트북LM 인포그래픽</h3></div><div class="section-card-body">';
-  items.forEach((item, i) => {
-    const escaped = escHtml(item.text);
-    html += `
-      <div style="margin-bottom:${i < items.length - 1 ? '36px' : '0'};">
-        <div style="font-size:14px;font-weight:700;color:var(--primary);margin-bottom:10px;padding-left:2px;">${item.label}</div>
-        <div class="prompt-block" style="margin-bottom:12px;">
-          <div class="code-wrap">
-            <pre id="${item.preId}">${escaped}</pre>
-            <button class="copy-btn" onclick="copyCode('${item.preId}', this)">복사</button>
-          </div>
-        </div>
-        <img src="images/Infographic/${item.file}" alt="${item.label}" style="width:100%;border-radius:8px;border:1px solid var(--border);" loading="lazy">
-      </div>`;
-  });
-  html += '</div></div>';
-  return html;
 }
 
 function renderSlideEdit() {
@@ -2655,10 +2453,8 @@ function goToPage(idx) {
   // Render guide or chapter
   if (idx === 2) {
     renderGuide();
-  } else if (idx === 3) {
-    renderAiInfo();
-  } else if (idx >= 4 && PAGES[idx] !== 'goodmessage') {
-    const ch = chapters[idx - 4];
+  } else if (idx >= 3) {
+    const ch = chapters[idx - 3];
     renderChapter(ch);
   }
 

@@ -1512,6 +1512,7 @@ Skip any field marked as '없음'. Do not add any other text. Do not alter the b
     <div class="page" id="page-ch6"></div>
     <div class="page" id="page-ch10"></div>
     <div class="page" id="page-ch11"></div>
+    <div class="page" id="page-ch12"></div>
     <div class="page" id="page-goodmessage" style="padding:0;">
       <iframe src="https://make-b-wordcard.vercel.app/" style="width:100%;height:calc(100% - 45px);border:none;" allowfullscreen></iframe>
       <div style="background:var(--card-bg);border-top:1px solid var(--border);padding:10px 24px;text-align:center;">
@@ -1533,8 +1534,8 @@ Skip any field marked as '없음'. Do not add any other text. Do not alter the b
 
 <script>
 // Page data
-const PAGES = ['cover','toc','guide','aiinfo','ch1','ch2','ch3','ch4','ch5','ch6','ch10','ch11','goodmessage'];
-const PAGE_LABELS = ['표지','목차','AI 등록 가이드','AI 활용 설교 준비','1장','2장','3장','4장','5장','6장','10장','11장','굿 메시지'];
+const PAGES = ['cover','toc','guide','aiinfo','ch1','ch2','ch3','ch4','ch5','ch6','ch10','ch11','ch12','goodmessage'];
+const PAGE_LABELS = ['표지','목차','AI 등록 가이드','AI 활용 설교 준비','1장','2장','3장','4장','5장','6장','10장','11장','12장','굿 메시지'];
 let currentPage = 0;
 
 // Helper to get prompt text
@@ -1736,6 +1737,16 @@ const chapters = [
     noDesc: true,
     shareLink: 'https://chatgpt.com/share/6a24180d-fe60-83a2-9a16-74d23ac4e11b',
     nameId:'p8-name', promptId:'p8-prompt'
+  },
+  {
+    id:'ch12', num:12,
+    title:'단체 문자 발송',
+    sub:'주중 교회 공지를 카카오톡으로 단체 발송',
+    aiTag:'Excel 매크로',
+    aiTagClass:'excel',
+    aiTools:[],
+    hasGems: false,
+    isDownload: true
   }
 ];
 
@@ -2074,6 +2085,10 @@ function renderChapter(ch) {
   if (ch.isSlideEdit) {
     html += renderSlideEdit();
   }
+  // Special: download (ch12)
+  else if (ch.isDownload) {
+    html += renderDownload();
+  }
   else {
     // Steps
     if (ch.steps && ch.steps.length) {
@@ -2261,6 +2276,33 @@ function renderChapter(ch) {
 }
 
 
+
+function renderDownload() {
+  return `
+  <div class="section-card">
+    <div class="section-card-header"><span class="sec-icon">📱</span><h3>카카오톡 단체 문자 발송</h3></div>
+    <div class="section-card-body">
+      <p style="margin-bottom:16px;font-size:14px;color:#555;line-height:1.7">
+        카카오톡 PC 버전을 통해 교회 성도들에게 단체 문자(공지)를 자동으로 발송하는 엑셀 매크로 파일입니다.<br>
+        주중 예배 공지, 행사 안내, 기도 제목 등을 한 번에 발송할 수 있습니다.
+      </p>
+      <div class="download-box">
+        <div class="dl-icon">📊</div>
+        <h3>카카오톡 문자보내기 Ver2.0</h3>
+        <p>엑셀 매크로 파일 (.xlsm)<br>문자만 발송 버전</p>
+        <a class="dl-btn" href="https://raw.githubusercontent.com/gunjoo1225/AIBOOK/master/%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%86%A1_%EB%AC%B8%EC%9E%90%EB%B3%B4%EB%82%B4%EA%B8%B0_Ver2.0(%EC%9B%90%EB%B3%B8)_%EB%AC%B8%EC%9E%90%EB%A7%8C_%EB%B0%9C%EC%86%A1.xlsm" download="카카오톡_문자보내기_Ver2.0_문자만_발송.xlsm" style="display:inline-block;text-decoration:none">⬇️ 파일 다운로드</a>
+      </div>
+      <div class="howto-box" style="margin-top:16px">
+        <h4>⚠️ 사용 전 주의사항</h4>
+        <ul class="howto-list">
+          <li>카카오톡 PC 버전이 설치되어 있어야 합니다</li>
+          <li>엑셀에서 매크로 실행을 허용해야 합니다</li>
+          <li>발송 전 소량으로 테스트해보세요</li>
+        </ul>
+      </div>
+    </div>
+  </div>`;
+}
 
 function renderSlideEdit() {
   const steps = [
