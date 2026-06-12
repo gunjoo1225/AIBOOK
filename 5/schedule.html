@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>나사렛 비전캠프 세부 일정표</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background: #FAFAF9;
+      color: #1C1917;
+      line-height: 1.6;
+    }
+
+    /* ── HERO: 따뜻한 앰버/브라운 — 준비 가이드의 보라색과 완전히 구분 ── */
+    .hero {
+      background: linear-gradient(150deg, #7C2D12 0%, #B45309 55%, #D97706 100%);
+      color: white;
+      text-align: center;
+      padding: 52px 24px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -30px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -30px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.08);
+      pointer-events: none;
+    }
+    .hero .label {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 999px;
+      padding: 4px 18px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 900;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .hero .date-badge {
+      display: inline-block;
+      background: rgba(0,0,0,0.28);
+      border-radius: 10px;
+      padding: 8px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .hero .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: white;
+      border-radius: 999px;
+      padding: 7px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .hero .back-btn:hover { background: rgba(255,255,255,0.26); }
+
+    /* ── 범례 ── */
+    .legend {
+      background: white;
+      border-bottom: 1px solid #E7E5E4;
+      padding: 9px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #57534E;
+    }
+    .legend-dot {
+      width: 9px; height: 9px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── 탭: 어두운 배경 + 채워진 버튼형 — 준비 가이드의 흰 배경 밑줄과 완전히 다름 ── */
+    .tab-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #292524;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+    .tab-btn {
+      flex: 1;
+      max-width: 210px;
+      padding: 10px 8px 9px;
+      border: 2px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.5);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .tab-btn:hover { background: rgba(255,255,255,0.13); color: rgba(255,255,255,0.85); }
+    .tab-btn.active { background: white; color: #1C1917; border-color: white; }
+    .tab-day  { font-size: 20px; font-weight: 900; display: block; }
+    .tab-label { font-size: 11px; font-weight: 600; display: block; margin-top: 1px; }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 14px 64px;
+    }
+
+    .day-section { display: none; }
+    .day-section.active { display: block; }
+
+    /* ── 날짜 헤더 스트라이프 ── */
+    .day-stripe {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding: 14px 20px;
+      border-radius: 14px;
+      color: white;
+    }
+    .day-stripe.d1 { background: linear-gradient(135deg, #B91C1C, #DC2626); }
+    .day-stripe.d2 { background: linear-gradient(135deg, #0369A1, #0284C7); }
+    .day-stripe.d3 { background: linear-gradient(135deg, #15803D, #16A34A); }
+    .ds-num { font-size: 36px; font-weight: 900; line-height: 1; opacity: 0.9; }
+    .ds-info h2 { font-size: 18px; font-weight: 800; }
+    .ds-info p  { font-size: 12px; opacity: 0.82; margin-top: 2px; }
+
+    /* ── 타임라인 ── */
+    .timeline { display: flex; flex-direction: column; }
+
+    .tl-item {
+      display: flex;
+      align-items: stretch;
+      min-height: 72px;
+    }
+
+    /* 시간 열 */
+    .tl-time {
+      width: 56px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-right: 10px;
+      padding-top: 14px;
+    }
+    .hhmm {
+      font-size: 17px;
+      font-weight: 900;
+      color: #1C1917;
+      line-height: 1;
+    }
+
+    /* 점 + 세로선 */
+    .tl-axis {
+      width: 22px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 12px;
+      z-index: 1;
+    }
+    .tl-vline {
+      width: 3px;
+      flex: 1;
+      margin-top: 2px;
+      border-radius: 2px;
+      min-height: 16px;
+    }
+    .tl-item:last-child .tl-vline { opacity: 0; }
+
+    /* 날짜별 점/선 색상 */
+    .d1 .tl-dot  { background: #DC2626; }
+    .d1 .tl-vline { background: #FCA5A5; }
+    .d2 .tl-dot  { background: #0284C7; }
+    .d2 .tl-vline { background: #7DD3FC; }
+    .d3 .tl-dot  { background: #16A34A; }
+    .d3 .tl-vline { background: #86EFAC; }
+
+    /* ── 카드 — 타입별로 완전히 다른 색상 ── */
+    .tl-card {
+      flex: 1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 6px 0 10px 10px;
+      border: 1.5px solid transparent;
+    }
+
+    /* 예배 — 황금/앰버 */
+    .card-worship {
+      background: #FFFBEB;
+      border-color: #FCD34D;
+    }
+    /* 강의 — 하늘색 */
+    .card-lecture {
+      background: #F0F9FF;
+      border-color: #7DD3FC;
+    }
+    /* 식사·기상 — 중립 회색, 그림자 없이 */
+    .card-meal {
+      background: #F5F5F4;
+      border-color: #D6D3D1;
+    }
+    /* 밤 토크 — 다크 */
+    .card-night {
+      background: #1C1917;
+      border-color: #44403C;
+    }
+    /* 이동 — 연두/초록 */
+    .card-go {
+      background: #F0FDF4;
+      border-color: #86EFAC;
+    }
+
+    /* 타입 뱃지 (카드 상단 라벨) */
+    .type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .badge-worship { background: #FEF3C7; color: #92400E; }
+    .badge-lecture { background: #E0F2FE; color: #075985; }
+    .badge-meal    { background: #E7E5E4; color: #57534E; }
+    .badge-night   { background: #44403C; color: #D6D3D1; }
+    .badge-go      { background: #DCFCE7; color: #166534; }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 5px;
+      line-height: 1.4;
+      color: #1C1917;
+    }
+    .card-night .card-title { color: #F5F5F4; }
+
+    /* 인물 정보 필 */
+    .card-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .info-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 9px;
+      border-radius: 6px;
+    }
+    .card-worship .info-pill { background: #FDE68A; color: #78350F; }
+    .card-lecture .info-pill { background: #BAE6FD; color: #075985; }
+    .card-meal    .info-pill { background: #D6D3D1; color: #44403C; }
+    .card-night   .info-pill { background: #292524; color: #A8A29E; }
+    .card-go      .info-pill { background: #BBF7D0; color: #166534; }
+
+    /* 주제/설교 제목 */
+    .card-theme {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      font-style: italic;
+      padding: 7px 12px;
+      border-radius: 8px;
+    }
+    .card-worship .card-theme { background: #FDE68A; color: #78350F; }
+    .card-lecture .card-theme { background: #BAE6FD; color: #0C4A6E; }
+    .card-night   .card-theme { background: #292524; color: #E7E5E4; }
+
+    /* ── 임원 소개 ── */
+    .officers-wrap {
+      margin-top: 44px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1.5px solid #E7E5E4;
+    }
+    .officers-head {
+      background: #292524;
+      color: white;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .officers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      background: white;
+    }
+    .officer-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 16px;
+      border-bottom: 1px solid #E7E5E4;
+      border-right: 1px solid #E7E5E4;
+    }
+    .o-role {
+      font-size: 10px;
+      font-weight: 700;
+      color: #78716C;
+      background: #F5F5F4;
+      border-radius: 4px;
+      padding: 2px 7px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .o-detail .o-name  { font-size: 14px; font-weight: 700; }
+    .o-detail .o-church { font-size: 11px; color: #78716C; margin-top: 1px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 13px;
+      color: #A8A29E;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="label">세부 일정표</div>
+  <h1>나사렛 비전캠프</h1>
+  <div class="date-badge">2026년 6월 22일(월) ~ 24일(수)</div><br>
+  <a href="index.html" class="back-btn">← 준비 가이드로 돌아가기</a>
+</div>
+
+<!-- 범례 -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#FCD34D;"></div>예배</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7DD3FC;"></div>강의·실습</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#D6D3D1;"></div>식사·기상</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#44403C;"></div>밤 모임</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#86EFAC;"></div>이동</div>
+</div>
+
+<!-- 탭 -->
+<div class="tab-wrap">
+  <button class="tab-btn active" onclick="showDay('mon', this)">
+    <span class="tab-day">22일</span>
+    <span class="tab-label">월 · 첫째날</span>
+  </button>
+  <button class="tab-btn" onclick="showDay('tue', this)">
+    <span class="tab-day">23일</span>
+    <span class="tab-label">화 · 둘째날</span>
+  </button>
+  <button class="tab-btn" onclick="showDay('wed', this)">
+    <span class="tab-day">24일</span>
+    <span class="tab-label">수 · 셋째날</span>
+  </button>
+</div>
+
+<div class="container">
+
+  <!-- ══════════ 22일 (월) ══════════ -->
+  <div class="day-section active" id="day-mon">
+    <div class="day-stripe d1">
+      <div class="ds-num">22</div>
+      <div class="ds-info">
+        <h2>6월 22일 · 월요일</h2>
+        <p>첫째 날 — 도착 및 개회</p>
+      </div>
+    </div>
+
+    <div class="timeline d1">
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">14:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">기타</div>
+          <div class="card-title">숙소 도착 / 방 배정</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">15:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-worship">
+          <div class="type-badge badge-worship">✝ 예배</div>
+          <div class="card-title">개회 예배</div>
+          <div class="card-info">
+            <span class="info-pill">사회 박근식 목사</span>
+            <span class="info-pill">기도 최환엽 목사</span>
+            <span class="info-pill">설교 최형영 목사</span>
+            <span class="info-pill">환영사 김경수 총장</span>
+          </div>
+          <span class="card-theme">"맛디댜를 아십니까?"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">16:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📋 안내</div>
+          <div class="card-title">오리엔테이션</div>
+          <div class="card-info">
+            <span class="info-pill">이순목 목사</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">17:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">식사</div>
+          <div class="card-title">저녁 식사 / 휴식</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">19:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📖 강의</div>
+          <div class="card-title">저녁 강의</div>
+          <div class="card-info">
+            <span class="info-pill">기도 황영환 목사</span>
+            <span class="info-pill">강사 강정규 목사</span>
+            <span class="info-pill">양주 사귐의 교회</span>
+          </div>
+          <span class="card-theme">"가장 오래된 교회, 가장 새로운 교회"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">21:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-night">
+          <div class="type-badge badge-night">💬 밤 모임</div>
+          <div class="card-title">터놓고 얘기해 봅시다</div>
+          <div class="card-info">
+            <span class="info-pill">With 간식</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-mon -->
+
+
+  <!-- ══════════ 23일 (화) ══════════ -->
+  <div class="day-section" id="day-tue">
+    <div class="day-stripe d2">
+      <div class="ds-num">23</div>
+      <div class="ds-info">
+        <h2>6월 23일 · 화요일</h2>
+        <p>둘째 날 — 집중 강의</p>
+      </div>
+    </div>
+
+    <div class="timeline d2">
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">06:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">기상</div>
+          <div class="card-title">기상 / 세면</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">07:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">식사</div>
+          <div class="card-title">아침 식사</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">08:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📖 강의 1부</div>
+          <div class="card-title">오전 강의</div>
+          <div class="card-info">
+            <span class="info-pill">기도 오창세 목사</span>
+            <span class="info-pill">강사 박은태 목사</span>
+            <span class="info-pill">등마루교회</span>
+          </div>
+          <span class="card-theme">"매뉴얼 있나요?"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">10:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">🖥 강의 2부</div>
+          <div class="card-title">오전 강의 — 실습</div>
+          <div class="card-info">
+            <span class="info-pill">기도 송난옥 전도사</span>
+            <span class="info-pill">강사 현건주</span>
+          </div>
+          <span class="card-theme">"예배 준비 및 교회 홍보지 작업"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">12:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">식사</div>
+          <div class="card-title">점심 식사</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">14:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📖 강의 3부</div>
+          <div class="card-title">오후 강의 1</div>
+          <div class="card-info">
+            <span class="info-pill">기도 김영철 목사</span>
+            <span class="info-pill">강사 김관성 목사</span>
+            <span class="info-pill">울산 낮은담 교회</span>
+          </div>
+          <span class="card-theme">"사랑하고 섬기라 1"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">16:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📖 강의 4부</div>
+          <div class="card-title">오후 강의 2</div>
+          <div class="card-info">
+            <span class="info-pill">강사 김관성 목사</span>
+            <span class="info-pill">울산 낮은담 교회</span>
+          </div>
+          <span class="card-theme">"사랑하고 섬기라 2"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">17:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">식사</div>
+          <div class="card-title">저녁 식사 / 휴식</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">19:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📖 강의 5부</div>
+          <div class="card-title">저녁 강의</div>
+          <div class="card-info">
+            <span class="info-pill">기도 전은경 목사</span>
+            <span class="info-pill">강사 김관성 목사</span>
+            <span class="info-pill">울산 낮은담 교회</span>
+          </div>
+          <span class="card-theme">"사랑하고 섬기라 3"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">21:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-night">
+          <div class="type-badge badge-night">💬 밤 모임</div>
+          <div class="card-title">터놓고 얘기해 봅시다</div>
+          <div class="card-info">
+            <span class="info-pill">With 간식</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-tue -->
+
+
+  <!-- ══════════ 24일 (수) ══════════ -->
+  <div class="day-section" id="day-wed">
+    <div class="day-stripe d3">
+      <div class="ds-num">24</div>
+      <div class="ds-info">
+        <h2>6월 24일 · 수요일</h2>
+        <p>셋째 날 — 마지막 강의 및 폐회</p>
+      </div>
+    </div>
+
+    <div class="timeline d3">
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">06:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">기상</div>
+          <div class="card-title">기상 / 세면</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">07:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-meal">
+          <div class="type-badge badge-meal">식사</div>
+          <div class="card-title">아침 식사</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">08:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-lecture">
+          <div class="type-badge badge-lecture">📖 강의</div>
+          <div class="card-title">오전 강의</div>
+          <div class="card-info">
+            <span class="info-pill">기도 김인순 목사</span>
+            <span class="info-pill">강사 정경화 목사</span>
+          </div>
+          <span class="card-theme">"우리들의 이야기"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">10:00</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-worship">
+          <div class="type-badge badge-worship">✝ 예배</div>
+          <div class="card-title">폐회 예배</div>
+          <div class="card-info">
+            <span class="info-pill">사회 정대성 목사</span>
+            <span class="info-pill">기도 김종철 목사</span>
+            <span class="info-pill">설교 박근식 목사</span>
+          </div>
+          <span class="card-theme">"다시 새롭게 성결의 불로"</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time"><span class="hhmm">12:00~</span></div>
+        <div class="tl-axis"><div class="tl-dot"></div><div class="tl-vline"></div></div>
+        <div class="tl-card card-go">
+          <div class="type-badge badge-go">🚗 이동</div>
+          <div class="card-title">각 사역지로 이동</div>
+          <div class="card-info">
+            <span class="info-pill">해산 후 각자 사역 시작</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-wed -->
+
+
+  <!-- ══════════ 임원 소개 ══════════ -->
+  <div class="officers-wrap">
+    <div class="officers-head">
+      👥 임원 소개
+    </div>
+    <div class="officers-grid">
+      <div class="officer-row">
+        <span class="o-role">국장</span>
+        <div class="o-detail"><div class="o-name">박근식 목사</div><div class="o-church">마라나타교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">총무</span>
+        <div class="o-detail"><div class="o-name">정대성 목사</div><div class="o-church">초원교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">서기</span>
+        <div class="o-detail"><div class="o-name">김덕진 목사</div><div class="o-church">정동교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">국내선교부장</span>
+        <div class="o-detail"><div class="o-name">이순목 목사</div><div class="o-church">좋은열매교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">성장팀장</span>
+        <div class="o-detail"><div class="o-name">박지원 목사</div><div class="o-church">연서천교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">지원팀장</span>
+        <div class="o-detail"><div class="o-name">김선자 목사</div><div class="o-church">명산교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">해외선교부장</span>
+        <div class="o-detail"><div class="o-name">정두영 목사</div><div class="o-church">주의동산교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">운영팀장</span>
+        <div class="o-detail"><div class="o-name">신승근 목사</div><div class="o-church">중보교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">재무팀장</span>
+        <div class="o-detail"><div class="o-name">김은석 목사</div><div class="o-church">의의나무교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">사회선교부장</span>
+        <div class="o-detail"><div class="o-name">윤병성 목사</div><div class="o-church">홍원교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">국내팀장</span>
+        <div class="o-detail"><div class="o-name">정경화 목사</div><div class="o-church">예광교회</div></div>
+      </div>
+      <div class="officer-row">
+        <span class="o-role">국제팀장</span>
+        <div class="o-detail"><div class="o-name">김미르 목사</div><div class="o-church">조이어스교회</div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  나사렛 비전캠프 세부 일정표 · 2026년 6월 22–24일
+</div>
+
+<script>
+  function showDay(day, btn) {
+    document.querySelectorAll('.day-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('day-' + day).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
