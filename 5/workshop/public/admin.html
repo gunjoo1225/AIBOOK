@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>관리자 - 차량 등록 현황</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #f0f4f8;
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      padding: 24px;
+    }
+    .header {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 20px 28px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header p  { font-size: 13px; opacity: 0.7; margin-top: 2px; }
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; border: none;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-flex; align-items: center;
+    }
+    .btn-success { background: #2e7d32; color: #fff; }
+    .btn-success:hover { background: #1b5e20; }
+    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+    .btn-primary { background: #2e6da4; color: #fff; }
+    .btn-primary:hover { background: #245d90; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .stat-card { background: #fff; border-radius: 10px; padding: 16px 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .stat-card .num { font-size: 32px; font-weight: 700; color: #2e6da4; }
+    .stat-card .label { font-size: 12px; color: #888; margin-top: 4px; }
+
+    .table-wrap { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead { background: #e8f0f8; }
+    thead th { padding: 13px 16px; text-align: left; font-weight: 600; color: #1a3a5c; border-bottom: 2px solid #d1dce8; }
+    tbody tr { border-bottom: 1px solid #f0f4f8; transition: background 0.15s; }
+    tbody tr:hover { background: #f7f9fc; }
+    tbody td { padding: 12px 16px; color: #333; }
+    .dates-badge { display: inline-block; background: #e8f0f8; color: #2e6da4; padding: 3px 10px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+    .del-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 16px; padding: 4px 8px; border-radius: 4px; transition: all 0.2s; }
+    .del-btn:hover { background: #fdecea; color: #c62828; }
+    .empty { text-align: center; padding: 48px; color: #aaa; font-size: 15px; }
+
+    .setup-banner {
+      background: #fffbeb;
+      border: 2px solid #fcd34d;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #92400e;
+      line-height: 1.8;
+    }
+    .setup-banner strong { color: #1a3a5c; }
+    .setup-banner code { background: #fef3c7; padding: 1px 6px; border-radius: 4px; font-family: monospace; font-size: 13px; }
+
+    @media (max-width: 600px) {
+      body { padding: 12px; }
+      table { font-size: 12px; }
+      thead th, tbody td { padding: 10px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>🚗 차량 등록 현황</h1>
+      <p>2026년 6월 22일 ~ 24일 · 비전캠프</p>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-outline" onclick="loadData()">새로고침</button>
+      <button class="btn btn-success" id="sheetBtn" onclick="openSheet()">구글 시트 열기</button>
+      <a href="index.html" class="btn btn-primary">등록 페이지</a>
+    </div>
+  </div>
+
+  <div class="setup-banner" id="setupBanner">
+    ⚠️ <strong>Apps Script URL 설정 필요</strong><br>
+    이 파일 상단의 <code>SCRIPT_URL</code> 변수에 배포된 Apps Script URL을 붙여넣어야 데이터가 표시됩니다.<br>
+    구글 시트는 <strong>Apps Script 편집기 → 배포 → 웹 앱으로 배포</strong>에서 URL을 확인할 수 있습니다.
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="num" id="statTotal">-</div><div class="label">전체 등록</div></div>
+    <div class="stat-card"><div class="num" id="stat22">-</div><div class="label">6.22 참석</div></div>
+    <div class="stat-card"><div class="num" id="stat23">-</div><div class="label">6.23 참석</div></div>
+    <div class="stat-card"><div class="num" id="stat24">-</div><div class="label">6.24 참석</div></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>이름</th><th>차량번호</th><th>참석일</th><th>등록일시</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr><td colspan="6" class="empty">데이터를 불러오는 중...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // ★ 여기에 Apps Script 배포 URL을 붙여넣으세요 ★
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwq7HbBUWkm5vFJvY7iF7QtwAb34cx3AZGs-2qAJkwVs4ESl85OA9-5qbzbYgm0-UUp/exec';
+    // ★ 구글 시트 URL을 붙여넣으세요 (선택) ★
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1BzTAKI1292TdctGy47EwUca8rvTrtxNoBYXGrAn29-M/edit';
+
+    if (SCRIPT_URL) {
+      document.getElementById('setupBanner').style.display = 'none';
+    }
+
+    function openSheet() {
+      if (SHEET_URL) { window.open(SHEET_URL, '_blank'); }
+      else { alert('admin.html 파일의 SHEET_URL을 입력해주세요.'); }
+    }
+
+    async function loadData() {
+      if (!SCRIPT_URL) {
+        document.getElementById('tableBody').innerHTML =
+          '<tr><td colspan="6" class="empty">SCRIPT_URL을 설정해주세요.</td></tr>';
+        return;
+      }
+      try {
+        const res  = await fetch(`${SCRIPT_URL}?action=list&t=${Date.now()}`);
+        const data = await res.json();
+        renderTable(data);
+        updateStats(data);
+      } catch {
+        document.getElementById('tableBody').innerHTML =
+          '<tr><td colspan="6" class="empty">데이터를 불러올 수 없습니다.</td></tr>';
+      }
+    }
+
+    function updateStats(data) {
+      document.getElementById('statTotal').textContent = data.length;
+      document.getElementById('stat22').textContent = data.filter(r => r.dates.includes('22')).length;
+      document.getElementById('stat23').textContent = data.filter(r => r.dates.includes('23')).length;
+      document.getElementById('stat24').textContent = data.filter(r => r.dates.includes('24')).length;
+    }
+
+    function renderTable(data) {
+      const tbody = document.getElementById('tableBody');
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty">등록된 차량이 없습니다.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = data.map((r, i) => `
+        <tr>
+          <td style="color:#aaa;font-size:12px">${data.length - i}</td>
+          <td><strong>${esc(r.name)}</strong></td>
+          <td>${esc(r.vehicle_number)}</td>
+          <td><span class="dates-badge">${esc(r.dates)}</span></td>
+          <td style="font-size:12px;color:#999">${r.created_at}</td>
+          <td><button class="del-btn" onclick="deleteRow(${r.row})" title="삭제">✕</button></td>
+        </tr>
+      `).join('');
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    async function deleteRow(row) {
+      if (!confirm('이 항목을 삭제하시겠습니까?')) return;
+      await fetch(`${SCRIPT_URL}?action=delete&row=${row}`);
+      loadData();
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
