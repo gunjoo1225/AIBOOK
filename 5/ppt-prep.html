@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예배 PPT 준비사항 — 비전 캠프</title>
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --primary-light: #EEF2FF;
+      --required: #DC2626;
+      --required-light: #FEF2F2;
+      --optional: #059669;
+      --optional-light: #ECFDF5;
+      --warning: #D97706;
+      --warning-light: #FFFBEB;
+      --step: #7C3AED;
+      --step-light: #F5F3FF;
+      --gray: #6B7280;
+      --dark: #111827;
+      --border: #E5E7EB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;
+      background: #F9FAFB;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    .hero {
+      background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
+      color: white;
+      text-align: center;
+      padding: 56px 24px 48px;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 999px;
+      padding: 4px 16px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 40px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .hero p {
+      font-size: 16px;
+      opacity: 0.88;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
+      background: var(--warning-light);
+      border-left: 5px solid var(--warning);
+      border-radius: 0 12px 12px 0;
+      margin: 28px auto;
+      max-width: 780px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .notice .icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .notice p { font-size: 15px; color: #92400E; font-weight: 600; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      max-width: 780px;
+      margin: 0 auto 32px;
+      padding: 0 20px;
+    }
+    .progress-label {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 6px;
+    }
+    .progress-bar-bg {
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #5B21B6, #7C3AED);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    .progress-count {
+      font-size: 13px;
+      color: var(--step);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    /* ── MAIN ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── SECTION CARD ── */
+    .section {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-header.purple { background: linear-gradient(135deg, #F5F3FF, #EDE9FE); border-left: 5px solid #7C3AED; }
+
+    .section-header .emoji { font-size: 24px; }
+    .section-header .text h2 { font-size: 18px; font-weight: 800; }
+    .section-header.purple .text h2 { color: #5B21B6; }
+    .section-header .text span { font-size: 13px; color: var(--gray); }
+
+    .section-body {
+      padding: 20px 24px;
+    }
+    .section-body.indent {
+      padding-left: 32px;
+      border-left: 3px solid transparent;
+      margin-left: 16px;
+      margin-right: 8px;
+      border-radius: 0 0 0 4px;
+    }
+    .section-body.indent.purple { border-left-color: #C4B5FD; }
+
+    /* ── TAG BADGE ── */
+    .tag {
+      display: inline-block;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      letter-spacing: 0.5px;
+    }
+    .tag.prep { background: var(--step-light); color: var(--step); }
+
+    /* ── CHECKLIST ITEM ── */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s;
+      border-radius: 8px;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-item:hover { background: #F9FAFB; }
+    .check-item.done .check-label { text-decoration: line-through; opacity: 0.45; }
+    .check-item.done .check-box { background: var(--step); border-color: var(--step); }
+    .check-item.done .check-box::after {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 10px;
+      border: 2px solid white;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+      margin: 2px auto 0;
+    }
+
+    .check-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      transition: all 0.2s;
+    }
+
+    .check-label { flex: 1; }
+    .check-label .num {
+      display: inline-block;
+      background: var(--step-light);
+      color: var(--step);
+      font-size: 12px;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 22px;
+      margin-right: 6px;
+    }
+    .check-label strong { font-size: 16px; font-weight: 700; }
+    .check-label p { font-size: 13px; color: var(--gray); margin-top: 2px; margin-left: 28px; }
+
+    /* ── LINK BUTTON ── */
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      margin-left: 28px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .link-btn:hover { background: #C7D2FE; }
+    .link-btn .arrow { font-size: 14px; }
+
+    .link-btn.download {
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 15px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-left: 0;
+    }
+    .link-btn.download:hover { background: #FDE68A; }
+
+    /* ── TIP BOX ── */
+    .tip {
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #166534;
+      display: flex;
+      gap: 8px;
+    }
+    .tip .tip-icon { flex-shrink: 0; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 780px;
+      margin: 24px auto 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: var(--step);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ── COMPLETE BANNER ── */
+    .complete-banner {
+      display: none;
+      background: linear-gradient(135deg, #5B21B6, #7C3AED);
+      color: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .complete-banner.show { display: block; }
+    .complete-banner h3 { font-size: 20px; margin-bottom: 4px; }
+    .complete-banner p { font-size: 14px; opacity: 0.9; }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      color: var(--gray);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">📊 예배 PPT 준비사항</div>
+  <h1>예배 PPT 제작 준비</h1>
+  <p>TV·빔프로젝터용 예배 PPT 제작에 필요한 환경을 미리 완료해 주세요.</p>
+</div>
+
+<!-- BACK LINK -->
+<a href="index.html" class="back-link">← 전체 준비 가이드로 돌아가기</a>
+
+<!-- NOTICE -->
+<div class="notice" style="margin-left:auto;margin-right:auto;max-width:780px;margin-top:20px;background:#FEF2F2;border-left:6px solid #DC2626;padding:20px 24px;">
+  <div class="icon">🚨</div>
+  <p style="color:#991B1B;font-size:17px;font-weight:700;line-height:1.8;">
+    해당 프로그램은 <strong>WINDOWS(노트북)</strong>에서만 실행됩니다.<br>
+    MAC BOOK, 태블릿에서는 사용이 불가합니다.
+  </p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap" style="margin-top:28px;">
+  <div class="progress-label">준비 진행률</div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-count" id="progressCount">0 / 2 완료</div>
+</div>
+
+<div class="container">
+
+  <!-- COMPLETE BANNER -->
+  <div class="complete-banner" id="completeBanner">
+    <h3>🎉 예배 PPT 준비 완료!</h3>
+    <p>교육 당일 원활하게 실습하실 수 있습니다. 수고하셨습니다!</p>
+  </div>
+
+  <!-- 예배 PPT 준비사항 -->
+  <div class="section">
+    <div class="section-header purple">
+      <span class="emoji">📊</span>
+      <div class="text">
+        <h2>예배 PPT 준비사항</h2>
+        <span>TV·빔프로젝터용 예배 PPT 제작에 필요한 환경</span>
+      </div>
+      <span class="tag prep">준비</span>
+    </div>
+    <div class="section-body indent purple">
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">1</span><strong>PPT 생성 자료 다운로드 &amp; 압축 해제</strong></div>
+          <p>아래 버튼을 클릭해 전체 파일을 다운로드하고 컴퓨터에 압축을 풀어주세요.</p>
+          <a href="https://naver.me/FG3rdi5U" target="_blank" class="link-btn download" style="margin-top:10px;">
+            ⬇️ &nbsp;PPT 자료 다운로드 받기
+          </a>
+          <img src="../images/ch2/img_download.png" alt="MYBOX 파일 선택 후 내려받기 클릭 안내" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-top:12px;">
+          <div class="tip" style="margin-top:10px;">
+            <span class="tip-icon">💡</span>
+            <span>다운로드 후 <strong>압축 해제</strong>까지 완료해 주세요!</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="check-item" onclick="toggle(this)">
+        <div class="check-box"></div>
+        <div class="check-label">
+          <div><span class="num">2</span><strong>Excel &amp; PowerPoint 설치 확인</strong></div>
+          <p>반드시 <strong>2019 이상 버전</strong>이어야 합니다. 설치 후 정상 실행까지 확인해 주세요.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  문의사항이 있으시면 교육 담당자에게 연락해 주세요.<br>
+  <span style="font-size:12px;opacity:0.6;">비전 캠프 예배 PPT 준비사항</span>
+</div>
+
+<script>
+  const TOTAL = 2;
+
+  function toggle(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const done = document.querySelectorAll('.check-item.done').length;
+    const pct = Math.round((done / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = done + ' / ' + TOTAL + ' 완료';
+
+    const banner = document.getElementById('completeBanner');
+    if (done === TOTAL) {
+      banner.classList.add('show');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+</script>
+</body>
+</html>

@@ -462,7 +462,7 @@
   <div class="progress-bar-bg">
     <div class="progress-bar-fill" id="progressFill"></div>
   </div>
-  <div class="progress-count" id="progressCount">0 / 12 완료</div>
+  <div class="progress-count" id="progressCount">0 / 6 완료</div>
 </div>
 
 <div class="container">
@@ -594,45 +594,15 @@
     </div>
   </div>
 
-  <!-- ③ 예배 PPT 준비 -->
-  <div class="section">
-    <div class="section-header purple">
-      <span class="emoji">📊</span>
-      <div class="text">
-        <h2>예배 PPT 준비사항</h2>
-        <span>TV·빔프로젝터용 예배 PPT 제작에 필요한 환경</span>
-        <span style="color:#e53e3e;font-size:13px;font-weight:600;display:block;margin-top:4px;">해당 프로그램은 WINDOWS(노트북) 에서만 실행됩니다.<br>MAC BOOK, 태블릿에서는 사용이 불가합니다.</span>
-      </div>
-      <span class="tag prep">준비</span>
+  <!-- 예배 PPT 준비 링크 카드 -->
+  <a href="ppt-prep.html" style="display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#5B21B6,#7C3AED);color:white;border-radius:14px;padding:18px 24px;text-decoration:none;box-shadow:0 4px 16px rgba(124,58,237,0.35);transition:opacity 0.15s;margin-bottom:24px;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+    <span style="font-size:32px;flex-shrink:0;">📊</span>
+    <div style="flex:1;">
+      <div style="font-size:17px;font-weight:800;margin-bottom:2px;">예배 PPT 준비사항</div>
+      <div style="font-size:13px;opacity:0.88;">PPT 자료 다운로드 · Excel &amp; PowerPoint 설치 확인 (Windows 전용)</div>
     </div>
-    <div class="section-body indent purple">
-
-      <div class="check-item" onclick="toggle(this)">
-        <div class="check-box"></div>
-        <div class="check-label">
-          <div><span class="num">1</span><strong>PPT 생성 자료 다운로드 &amp; 압축 해제</strong></div>
-          <p>아래 버튼을 클릭해 전체 파일을 다운로드하고 컴퓨터에 압축을 풀어주세요.</p>
-          <a href="https://naver.me/FG3rdi5U" target="_blank" class="link-btn download" style="margin-top:10px;">
-            ⬇️ &nbsp;PPT 자료 다운로드 받기
-          </a>
-          <img src="../images/ch2/img_download.png" alt="MYBOX 파일 선택 후 내려받기 클릭 안내" style="width:100%;border-radius:8px;border:1px solid var(--border);margin-top:12px;">
-          <div class="tip" style="margin-top:10px;">
-            <span class="tip-icon">💡</span>
-            <span>다운로드 후 <strong>압축 해제</strong>까지 완료해 주세요!</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="check-item" onclick="toggle(this)">
-        <div class="check-box"></div>
-        <div class="check-label">
-          <div><span class="num">2</span><strong>Excel &amp; PowerPoint 설치 확인</strong></div>
-          <p>반드시 <strong>2019 이상 버전</strong>이어야 합니다. 설치 후 정상 실행까지 확인해 주세요.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
+    <span style="font-size:22px;opacity:0.8;">→</span>
+  </a>
 
   <!-- ④ 선택 사항 -->
   <div class="section">
@@ -753,7 +723,7 @@
 </div>
 
 <script>
-  const TOTAL = 12;
+  const TOTAL = 6;
 
   function toggle(el) {
     el.classList.toggle('done');
