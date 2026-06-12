@@ -379,8 +379,15 @@
     .material-icon.blue  { background: var(--primary-light); }
     .material-icon.amber { background: var(--warning-light); }
     .material-icon.purple { background: var(--step-light); }
+    .material-icon.red   { background: var(--required-light); }
     .material-text strong { font-size: 14px; font-weight: 700; }
     .material-text p { font-size: 12px; color: var(--gray); margin-top: 2px; }
+    .material-item.important {
+      background: #FEF2F2;
+      border: 1.5px solid #FCA5A5;
+    }
+    .material-item.important .material-text strong { color: var(--required); }
+    .material-item.important .material-text p { color: #B91C1C; }
 
     /* ── TIP BOX ── */
     .tip {
@@ -485,18 +492,10 @@
     <div class="section-body indent amber">
 
       <div class="material-item">
-        <div class="material-icon blue">📄</div>
+        <div class="material-icon blue">💻</div>
         <div class="material-text">
-          <strong>개인 설교 1~2개 준비</strong>
-          <p>HWP 파일 형식으로 저장 후 ① 노트북에 담아오시거나 ② USB에 담아오세요.</p>
-        </div>
-      </div>
-
-      <div class="material-item">
-        <div class="material-icon amber">📰</div>
-        <div class="material-text">
-          <strong>교회 주보 준비</strong>
-          <p>종이 주보로 준비해 주세요. (인쇄본)</p>
+          <strong>노트북 준비</strong>
+          <p>교육에 사용할 개인 노트북을 지참해 주세요.</p>
         </div>
       </div>
 
@@ -505,6 +504,22 @@
         <div class="material-text">
           <strong>마우스 준비</strong>
           <p>원활한 실습을 위해 마우스를 지참해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="material-item important">
+        <div class="material-icon red">📄</div>
+        <div class="material-text">
+          <strong>개인 설교 파일 1개</strong>
+          <p>최근 설교로 준비해주시기 바랍니다. HWP 파일로 노트북 또는 USB에 담아오세요.</p>
+        </div>
+      </div>
+
+      <div class="material-item important">
+        <div class="material-icon red">📰</div>
+        <div class="material-text">
+          <strong>교회 주보 준비</strong>
+          <p>종이 주보로 준비해 주세요. (인쇄본)</p>
         </div>
       </div>
 
