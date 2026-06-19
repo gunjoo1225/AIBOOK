@@ -1887,6 +1887,9 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
       </div>
     </div>
 
+    <!-- 교육목표 -->
+    <div class="page" id="page-edu"></div>
+
     <!-- AI 등록 가이드 -->
     <div class="page" id="page-guide"></div>
 
@@ -1926,8 +1929,8 @@ FLOW용 프롬프트 3 (이미지 내용 설명 + 영문 코드블록)</script>
 
 <script>
 // Page data
-const PAGES = ['cover','toc','guide','aiinfo','ch1','ch2','ch3','ch4','ch6','ch10','ch5','ch7','ch8','ch9','ch11','goodmessage'];
-const PAGE_LABELS = ['표지','목차','AI 등록 가이드','AI 활용 설교 준비','1장','2장','3장','4장','5장','6장','7장','8장','9장','10장','11장','굿 메시지'];
+const PAGES = ['cover','toc','edu','guide','aiinfo','ch1','ch2','ch3','ch4','ch6','ch10','ch5','ch7','ch8','ch9','ch11','goodmessage'];
+const PAGE_LABELS = ['표지','목차','교육목표','AI 등록 가이드','AI 활용 설교 준비','1장','2장','3장','4장','5장','6장','7장','8장','9장','10장','11장','굿 메시지'];
 let currentPage = 0;
 
 // Helper to get prompt text
@@ -2185,6 +2188,57 @@ const chapters = [
     isYoutube: true
   }
 ];
+
+// Render 교육목표 page
+function renderEdu() {
+  const el = document.getElementById('page-edu');
+  if (el.dataset.rendered) return;
+  el.dataset.rendered = '1';
+  el.innerHTML = `
+  <div class="guide-page">
+    <h2>🎯 교육 목표</h2>
+    <p class="guide-intro">이 강의를 통해 AI를 낯선 기술이 아닌, 목회를 돕는 <b>실용적인 동역자</b>로 경험합니다.<br>
+    오늘 배운 내용을 내일 바로 현장에서 꺼내 쓸 수 있도록 설계되었습니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px;">
+
+      <div class="section-card" style="margin:0;">
+        <div class="section-card-header">
+          <span class="sec-icon">💎</span>
+          <h3>왜 지금, AI인가?</h3>
+        </div>
+        <div class="section-card-body" style="padding-top:0;">
+          <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:12px;line-height:1.6;">
+            혼자 감당하는 1인 목회의 무게를 AI와 나누는 법.<br>
+            설교·심방·주보·포스터까지, 정작 말씀 목상할 시간이 늘어납니다.
+          </p>
+          <img src="1.png" alt="왜 지금 AI인가 - GPT PRO" style="width:100%;border-radius:8px;display:block;margin-bottom:10px;">
+          <div style="text-align:center;">
+            <span style="display:inline-block;background:linear-gradient(135deg,#10a37f,#1a7f5a);color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:0.5px;">GPT PRO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card" style="margin:0;">
+        <div class="section-card-header">
+          <span class="sec-icon">🤝</span>
+          <h3>AI와 함께, 더 가볍게</h3>
+        </div>
+        <div class="section-card-body" style="padding-top:0;">
+          <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:12px;line-height:1.6;">
+            유료 구독 없이도 시작할 수 있는 AI 목회 활용법.<br>
+            본질에 집중하는 목회의 첫걸음을 무료로 체험합니다.
+          </p>
+          <img src="2.png" alt="왜 지금 AI인가 - 무료 GPT" style="width:100%;border-radius:8px;display:block;margin-bottom:10px;">
+          <div style="text-align:center;">
+            <span style="display:inline-block;background:linear-gradient(135deg,#6b7280,#4b5563);color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:0.5px;">무료 GPT</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>`;
+}
 
 // Render AI 활용 설교 준비 page
 function renderAiInfo() {
@@ -2468,20 +2522,21 @@ function renderSidebar() {
   html += `<div class="nav-item special" onclick="goToPage(0)"><span class="nav-num">—</span>표지</div>`;
   html += `<div class="nav-item special" onclick="goToPage(1)"><span class="nav-num">—</span>목차</div>`;
   html += `<div class="nav-divider"></div>`;
-  html += `<div class="nav-item" id="nav-guide" onclick="goToPage(2)"><span class="nav-num">★</span>AI 등록 가이드</div>`;
-  html += `<div class="nav-item" id="nav-aiinfo" onclick="goToPage(3)"><span class="nav-num">📊</span>AI 활용 설교 준비</div>`;
+  html += `<div class="nav-item" id="nav-edu" onclick="goToPage(2)"><span class="nav-num">🎯</span>교육목표</div>`;
+  html += `<div class="nav-item" id="nav-guide" onclick="goToPage(3)"><span class="nav-num">★</span>AI 등록 가이드</div>`;
+  html += `<div class="nav-item" id="nav-aiinfo" onclick="goToPage(4)"><span class="nav-num">📊</span>AI 활용 설교 준비</div>`;
   html += `<div class="nav-divider"></div>`;
   html += `<div style="padding:6px 20px 2px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.2px;text-transform:uppercase;">📗 NotebookLM</div>`;
   chapters.forEach((ch, i) => {
     if (ch.num === 4) {
       html += `<div style="padding:10px 20px 2px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:1.2px;text-transform:uppercase;">🤖 ChatGPT</div>`;
     }
-    html += `<div class="nav-item" id="nav-${ch.id}" onclick="goToPage(${i+4})">
+    html += `<div class="nav-item" id="nav-${ch.id}" onclick="goToPage(${i+5})">
       <span class="nav-num">${ch.num}</span>${ch.title}
     </div>`;
   });
   html += `<div class="nav-divider"></div>`;
-  html += `<div class="nav-item" id="nav-goodmessage" onclick="goToPage(${4 + chapters.length})"><span class="nav-num">✉</span>굿 메시지</div>`;
+  html += `<div class="nav-item" id="nav-goodmessage" onclick="goToPage(${5 + chapters.length})"><span class="nav-num">✉</span>굿 메시지</div>`;
   nav.innerHTML = html;
 }
 
@@ -2490,7 +2545,7 @@ function renderTOC() {
   const grid = document.getElementById('toc-grid');
   let html = '';
   chapters.forEach((ch, i) => {
-    html += `<div class="toc-card" onclick="goToPage(${i+4})">
+    html += `<div class="toc-card" onclick="goToPage(${i+5})">
       <div class="ch-num">Chapter ${ch.num}</div>
       <h3>${ch.title}</h3>
       <p>${ch.sub}</p>
@@ -3069,11 +3124,13 @@ function goToPage(idx) {
 
   // Render guide or chapter
   if (idx === 2) {
-    renderGuide();
+    renderEdu();
   } else if (idx === 3) {
+    renderGuide();
+  } else if (idx === 4) {
     renderAiInfo();
-  } else if (idx >= 4 && PAGES[idx] !== 'goodmessage') {
-    const ch = chapters[idx - 4];
+  } else if (idx >= 5 && PAGES[idx] !== 'goodmessage') {
+    const ch = chapters[idx - 5];
     renderChapter(ch);
   }
 
