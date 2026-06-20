@@ -2190,52 +2190,133 @@ const chapters = [
 ];
 
 // Render 교육목표 page
+const EDU_SLIDES = [
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_1.png',
+    title: '강의 오프닝',
+    desc: '행정에 갇힌 목회, AI로 본질을 회복하다. 정신없이 바쁜 하루를 보내는 목회자들을 위한 강의 시작입니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_2.png',
+    title: '목회자들은 왜 이렇게 바쁠까요?',
+    desc: '강의 준비를 위해 여러 목사님들과 통화한 결론은 하나, "다들 너무 바쁘시다"는 것입니다. AI에게 목회 업무 전체를 분석하게 한 결과를 함께 나눕니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_3.png',
+    title: 'AI가 분석한 목회자의 두 가지 어깨',
+    desc: '본질적 업무(말씀 사역·기도 사역·돌봄·목양)와 운영적 업무(예배·행정·조직·행사·미디어·대외) — AI가 분석한 목회자의 전체 업무 목록입니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_4.png',
+    title: '우리가 지치고 바쁜 진짜 이유',
+    desc: '바쁜 이유는 본질적 업무가 아닌 운영적 업무 때문입니다. 말씀을 묵상하고 양들을 돌보는 시간보다 행정적인 일들에 갇혀 한 주를 보내는 것이 우리의 현실입니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_5.png',
+    title: '시대가 변하며 팽창한 운영적 업무',
+    desc: '아날로그 → 디지털 → 팬데믹·미디어 시대로 갈수록 운영적 업무가 폭발적으로 증가했습니다. 이제는 미디어 전문가 수준의 업무 강도가 일상이 되었습니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_6.png',
+    title: '일은 늘어났으나, 일할 사람은 줄어든 현실',
+    desc: '업무량은 급증하고 사역 인력은 감소하는 구조적 현실. 부교역자 구인난의 심화로 다수의 교회가 "1인 목회"의 구조적 한계에 도달했습니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_7.png',
+    title: 'AI에 대한 오해와 진실',
+    desc: '오해: AI가 목회자의 설교를 대신 써주는 기계. 진실: AI가 행정과 실무를 처리하고, 목회자는 말씀과 사람에게 집중할 수 있는 구조를 만드는 것입니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_8.png',
+    title: '에너지가 고갈된 목회의 현실',
+    desc: '행정, 기획, 미디어… 이 모든 운영적 일을 다 마치고 나서야 "아… 이제 설교 준비해야 돼…" 에너지가 고갈된 상태에서 마주하는 것이 목회의 본질이 되고 있습니다.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_9.png',
+    title: '오늘 강의를 통해 얻어갈 4가지',
+    desc: 'Why(목적) - 반복되는 일 때문에 뒤로 밀리는 현실 극복하기. What(도구) - AI의 역할 이해하기. How(방법) - 실제 프롬프트 실습 경험하기. What if(미래) - 말씀과 사람에게 집중할 시간 회복하기.' },
+  { src: 'images/edu-slides/clean_Restoring_Ministry_with_AI_(3)_10.png',
+    title: 'AI는 동역의 도구입니다',
+    desc: 'AI는 설교를 작성해주는 기계가 아니라, 목회의 본질을 회복하게 돕는 동역의 도구입니다. 잃어버린 목양의 시간을 되찾는 여정을 지금부터 함께 실습합니다.' },
+];
+
 function renderEdu() {
   const el = document.getElementById('page-edu');
   if (el.dataset.rendered) return;
   el.dataset.rendered = '1';
+
+  const cards = EDU_SLIDES.map((slide, i) => `
+    <div class="edu-slide-card">
+      <div class="edu-slide-meta">
+        <span class="edu-slide-idx">${i + 1} / ${EDU_SLIDES.length}</span>
+        <span class="edu-slide-title">${slide.title}</span>
+      </div>
+      <img
+        src="${slide.src}"
+        alt="${slide.title}"
+        loading="lazy"
+        class="edu-slide-img"
+        onclick="openSlideshow(${i})"
+        title="클릭하여 전체화면으로 보기"
+      >
+      <p class="edu-slide-desc">${slide.desc}</p>
+    </div>
+  `).join('');
+
   el.innerHTML = `
   <div class="guide-page">
     <h2>🎯 교육 목표</h2>
-    <p class="guide-intro">이 강의를 통해 AI를 낯선 기술이 아닌, 목회를 돕는 <b>실용적인 동역자</b>로 경험합니다.<br>
-    오늘 배운 내용을 내일 바로 현장에서 꺼내 쓸 수 있도록 설계되었습니다.</p>
-
-    <div class="section-card">
-      <div class="section-card-header">
-        <span class="sec-icon">📌</span>
-        <h3>왜 지금, AI인가?</h3>
-      </div>
-      <div class="section-card-body" style="padding-top:0;">
-        <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:14px;line-height:1.7;">
-          혼자 감당하는 1인 목회의 무게를 AI와 나누는 법을 소개합니다.<br>
-          설교·심방·주보·포스터까지, AI가 반복 업무를 대신해 정작 말씀 묵상할 시간이 늘어납니다.
-        </p>
-        <img src="1.png" alt="왜 지금 AI인가 강의 오프닝 슬라이드" onclick="openLightbox(this)" style="width:100%;border-radius:10px;display:block;margin-bottom:12px;cursor:zoom-in;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
-        <div style="text-align:center;">
-          <span style="display:inline-block;background:linear-gradient(135deg,#10a37f,#1a7f5a);color:#fff;font-size:12px;font-weight:700;padding:4px 16px;border-radius:20px;letter-spacing:0.5px;">GPT PRO</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-card">
-      <div class="section-card-header">
-        <span class="sec-icon">🔍</span>
-        <h3>무료 GPT vs GPT PRO — 무엇이 다를까?</h3>
-      </div>
-      <div class="section-card-body" style="padding-top:0;">
-        <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:14px;line-height:1.7;">
-          구독 없이도 시작할 수 있습니다. 무료 버전과 PRO 버전의 차이를 확인하고,<br>
-          본인의 상황에 맞는 방식으로 바로 활용해 보세요.
-        </p>
-        <img src="2.png" alt="무료 GPT vs GPT PRO 비교" style="width:100%;border-radius:10px;display:block;margin-bottom:12px;">
-        <div style="text-align:center;">
-          <span style="display:inline-block;background:linear-gradient(135deg,#6b7280,#4b5563);color:#fff;font-size:12px;font-weight:700;padding:4px 16px;border-radius:20px;letter-spacing:0.5px;margin-right:8px;">무료 GPT</span>
-          <span style="display:inline-block;background:linear-gradient(135deg,#10a37f,#1a7f5a);color:#fff;font-size:12px;font-weight:700;padding:4px 16px;border-radius:20px;letter-spacing:0.5px;">GPT PRO</span>
-        </div>
-      </div>
-    </div>
-
+    <p class="guide-intro">강의 시작 전 프레젠테이션입니다. 이미지를 클릭하면 전체화면 슬라이드쇼로 전환되며, ← → 키 또는 화살표 버튼으로 이동할 수 있습니다.</p>
+    <div class="edu-slides-list">${cards}</div>
   </div>`;
+}
+
+// Slideshow state
+let ssIndex = 0;
+let ssDotsBuilt = false;
+let ssHideTimer = null;
+
+function openSlideshow(idx) {
+  ssIndex = idx;
+  if (!ssDotsBuilt) {
+    const dots = document.getElementById('ss-dots');
+    if (dots) {
+      dots.innerHTML = EDU_SLIDES.map((_, i) =>
+        `<span class="ss-dot" id="ssdot-${i}" onclick="ssGoTo(${i})"></span>`
+      ).join('');
+      ssDotsBuilt = true;
+    }
+  }
+  updateSlideshow();
+  const ov = document.getElementById('slideshow-overlay');
+  ov.style.display = 'flex';
+  ssTriggerShow();
+  document.addEventListener('keydown', slideshowKeyHandler);
+}
+
+function closeSlideshow() {
+  document.getElementById('slideshow-overlay').style.display = 'none';
+  document.removeEventListener('keydown', slideshowKeyHandler);
+  clearTimeout(ssHideTimer);
+}
+
+function ssTriggerShow() {
+  document.getElementById('slideshow-overlay').classList.remove('ss-ui-hidden');
+  clearTimeout(ssHideTimer);
+  ssHideTimer = setTimeout(() => {
+    document.getElementById('slideshow-overlay').classList.add('ss-ui-hidden');
+  }, 2500);
+}
+
+function slideshowKeyHandler(e) {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { ssTriggerShow(); slideNext(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { ssTriggerShow(); slidePrev(); }
+  else if (e.key === 'Escape') closeSlideshow();
+}
+
+function slideNext() {
+  ssIndex = (ssIndex + 1) % EDU_SLIDES.length;
+  updateSlideshow();
+}
+function slidePrev() {
+  ssIndex = (ssIndex - 1 + EDU_SLIDES.length) % EDU_SLIDES.length;
+  updateSlideshow();
+}
+function ssGoTo(i) {
+  ssIndex = i;
+  updateSlideshow();
+}
+function updateSlideshow() {
+  document.getElementById('ss-img').src = EDU_SLIDES[ssIndex].src;
+  document.getElementById('ss-counter').textContent = (ssIndex + 1) + ' / ' + EDU_SLIDES.length;
+  document.getElementById('ss-prev').style.opacity = ssIndex === 0 ? '0.35' : '1';
+  document.getElementById('ss-next').style.opacity = ssIndex === EDU_SLIDES.length - 1 ? '0.35' : '1';
+  document.querySelectorAll('.ss-dot').forEach((d, i) => {
+    d.classList.toggle('ss-dot-active', i === ssIndex);
+  });
 }
 
 // Render AI 활용 설교 준비 page
@@ -3186,9 +3267,156 @@ function closeLightboxOnEsc(e) {
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" style="max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,0.6);object-fit:contain;">
   <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:28px;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;">&times;</button>
 </div>
+
+<!-- Slideshow overlay -->
+<div id="slideshow-overlay" onmousemove="ssTriggerShow()" style="display:none;position:fixed;inset:0;background:#000;z-index:10000;flex-direction:column;align-items:center;justify-content:center;cursor:none;">
+  <!-- Close -->
+  <button class="ss-control ss-close" onclick="closeSlideshow()">&times;</button>
+  <!-- Counter -->
+  <div id="ss-counter" class="ss-control ss-counter"></div>
+  <!-- Image (click right half = next, left half = prev) -->
+  <img id="ss-img" src="" alt="" class="ss-main-img" onclick="ssClickNav(event)">
+  <!-- Prev button -->
+  <button id="ss-prev" class="ss-control ss-arrow ss-arrow-l" onclick="slidePrev()">&#8592;</button>
+  <!-- Next button -->
+  <button id="ss-next" class="ss-control ss-arrow ss-arrow-r" onclick="slideNext()">&#8594;</button>
+  <!-- Dot indicators -->
+  <div id="ss-dots" class="ss-control ss-dots-wrap"></div>
+</div>
+
 <style>
   #lightbox { display:none; }
   #lightbox.active { display:flex; }
+
+  /* ── Edu slide list (one per section) ── */
+  .edu-slides-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 4px;
+  }
+  .edu-slide-card {
+    background: var(--card-bg, #fff);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .edu-slide-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px 8px;
+  }
+  .edu-slide-idx {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--accent, #6366f1);
+    padding: 2px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .edu-slide-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary, #111);
+  }
+  .edu-slide-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    cursor: zoom-in;
+    transition: opacity 0.15s;
+  }
+  .edu-slide-img:hover { opacity: 0.9; }
+  .edu-slide-desc {
+    padding: 12px 16px 14px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-secondary, #555);
+    margin: 0;
+  }
+
+  /* ── Slideshow fullscreen overlay ── */
+  #slideshow-overlay { cursor: default; }
+
+  .ss-main-img {
+    max-width: 100vw;
+    max-height: 100vh;
+    object-fit: contain;
+    user-select: none;
+    display: block;
+  }
+
+  /* Controls — always in DOM, fade in/out */
+  .ss-control {
+    transition: opacity 0.35s ease;
+    opacity: 1;
+  }
+  #slideshow-overlay.ss-ui-hidden .ss-control {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ss-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    background: rgba(255,255,255,0.15);
+    border: none; color: #fff;
+    font-size: 28px; line-height: 1;
+    width: 44px; height: 44px;
+    border-radius: 50%; cursor: pointer;
+    z-index: 1;
+  }
+  .ss-close:hover { background: rgba(255,255,255,0.28); }
+
+  .ss-counter {
+    position: absolute;
+    top: 20px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.75);
+    font-size: 14px; font-weight: 600; letter-spacing: 1px;
+    pointer-events: none;
+  }
+
+  .ss-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.12);
+    border: none; color: #fff;
+    font-size: 32px; width: 52px; height: 52px;
+    border-radius: 50%; cursor: pointer;
+  }
+  .ss-arrow:hover { background: rgba(255,255,255,0.28); }
+  .ss-arrow-l { left: 12px; }
+  .ss-arrow-r { right: 12px; }
+
+  .ss-dots-wrap {
+    position: absolute; bottom: 18px;
+    left: 50%; transform: translateX(-50%);
+    display: flex; gap: 7px; align-items: center;
+  }
+  .ss-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .ss-dot.ss-dot-active {
+    background: #fff;
+    transform: scale(1.45);
+  }
+  .ss-dot:hover { background: rgba(255,255,255,0.7); }
 </style>
+
+<script>
+function ssClickNav(e) {
+  const half = e.currentTarget.getBoundingClientRect().width / 2;
+  if (e.offsetX > half) slideNext(); else slidePrev();
+  ssTriggerShow();
+}
+</script>
+
 </body>
 </html>
