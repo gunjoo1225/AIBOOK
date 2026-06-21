@@ -3335,7 +3335,7 @@ document.addEventListener('webkitfullscreenchange', () => {
 </div>
 
 <!-- Slideshow overlay -->
-<div id="slideshow-overlay" onmousemove="ssTriggerShow()" style="display:none;position:fixed;inset:0;background:#000;z-index:10000;flex-direction:column;align-items:center;justify-content:center;cursor:none;">
+<div id="slideshow-overlay" onmousemove="ssTriggerShow()" style="display:none;position:fixed;inset:0;background:#000;z-index:10000;flex-direction:column;align-items:center;justify-content:center;">
   <!-- Close -->
   <button class="ss-control ss-close" onclick="closeSlideshow()">&times;</button>
   <!-- Counter -->
@@ -3407,6 +3407,7 @@ document.addEventListener('webkitfullscreenchange', () => {
 
   /* ── Slideshow fullscreen overlay ── */
   #slideshow-overlay { cursor: default; }
+  #slideshow-overlay.ss-ui-hidden { cursor: none; }
 
   .ss-main-img {
     width: 100vw;
