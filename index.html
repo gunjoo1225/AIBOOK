@@ -2258,6 +2258,7 @@ function renderEdu() {
 let ssIndex = 0;
 let ssDotsBuilt = false;
 let ssHideTimer = null;
+let ssInFullscreen = false;
 
 function openSlideshow(idx) {
   ssIndex = idx;
@@ -2273,6 +2274,11 @@ function openSlideshow(idx) {
   updateSlideshow();
   const ov = document.getElementById('slideshow-overlay');
   ov.style.display = 'flex';
+  // 브라우저 전체화면 요청
+  const req = ov.requestFullscreen || ov.webkitRequestFullscreen || ov.mozRequestFullScreen;
+  if (req) {
+    req.call(ov).then(() => { ssInFullscreen = true; }).catch(() => { ssInFullscreen = false; });
+  }
   ssTriggerShow();
   document.addEventListener('keydown', slideshowKeyHandler);
 }
@@ -2281,6 +2287,10 @@ function closeSlideshow() {
   document.getElementById('slideshow-overlay').style.display = 'none';
   document.removeEventListener('keydown', slideshowKeyHandler);
   clearTimeout(ssHideTimer);
+  if (ssInFullscreen && (document.fullscreenElement || document.webkitFullscreenElement)) {
+    ssInFullscreen = false;
+    (document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen).call(document).catch(() => {});
+  }
 }
 
 function ssTriggerShow() {
@@ -3296,11 +3306,23 @@ function lbKeyHandler(e) {
   if (e.key === 'ArrowLeft') lbPrev();
   if (e.key === 'ArrowRight') lbNext();
 }
+function onFullscreenExit() {
+  const ssOv = document.getElementById('slideshow-overlay');
+  if (ssInFullscreen) {
+    // 사용자가 Esc로 전체화면 직접 종료
+    ssInFullscreen = false;
+    if (ssOv) ssOv.style.display = 'none';
+    document.removeEventListener('keydown', slideshowKeyHandler);
+    clearTimeout(ssHideTimer);
+  } else {
+    closeLightbox();
+  }
+}
 document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement) closeLightbox();
+  if (!document.fullscreenElement) onFullscreenExit();
 });
 document.addEventListener('webkitfullscreenchange', () => {
-  if (!document.webkitFullscreenElement) closeLightbox();
+  if (!document.webkitFullscreenElement) onFullscreenExit();
 });
 </script>
 
@@ -3387,12 +3409,16 @@ document.addEventListener('webkitfullscreenchange', () => {
   #slideshow-overlay { cursor: default; }
 
   .ss-main-img {
-    max-width: 100vw;
-    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
     object-fit: contain;
     user-select: none;
     display: block;
   }
+  /* 전체화면 상태에서 오버레이가 루트가 되므로 vw/vh = 화면 크기 */
+  :-webkit-full-screen #slideshow-overlay { background: #000; }
+  :-moz-full-screen #slideshow-overlay { background: #000; }
+  :fullscreen #slideshow-overlay { background: #000; }
 
   /* Controls — always in DOM, fade in/out */
   .ss-control {
