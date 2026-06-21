@@ -3252,20 +3252,34 @@ function openLightbox(img) {
   document.getElementById('lightbox-img').src = img.src;
   lb.style.display = 'flex';
   document.addEventListener('keydown', closeLightboxOnEsc);
+  const el = document.documentElement;
+  const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
+  if (req) req.call(el).catch(() => {});
 }
 function closeLightbox() {
-  document.getElementById('lightbox').style.display = 'none';
+  const lb = document.getElementById('lightbox');
+  if (lb.style.display === 'none') return;
+  lb.style.display = 'none';
   document.removeEventListener('keydown', closeLightboxOnEsc);
+  if (document.fullscreenElement || document.webkitFullscreenElement) {
+    (document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen).call(document);
+  }
 }
 function closeLightboxOnEsc(e) {
   if (e.key === 'Escape') closeLightbox();
 }
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) closeLightbox();
+});
+document.addEventListener('webkitfullscreenchange', () => {
+  if (!document.webkitFullscreenElement) closeLightbox();
+});
 </script>
 
 <!-- Lightbox overlay -->
-<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;padding:24px;">
-  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" style="max-width:100%;max-height:100%;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,0.6);object-fit:contain;">
-  <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:28px;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;">&times;</button>
+<div id="lightbox" onclick="closeLightbox()" style="display:none;position:fixed;inset:0;background:#000;z-index:9999;align-items:center;justify-content:center;">
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" style="width:100%;height:100%;object-fit:cover;">
+  <button onclick="closeLightbox()" style="position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.2);border:none;color:#fff;font-size:28px;line-height:1;width:44px;height:44px;border-radius:50%;cursor:pointer;">&times;</button>
 </div>
 
 <!-- Slideshow overlay -->
